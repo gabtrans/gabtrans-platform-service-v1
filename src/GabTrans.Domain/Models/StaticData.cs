@@ -41,7 +41,7 @@ namespace GabTrans.Domain.Models
         public static int JwtExpireMinutes { get; set; }
         public static int RefreshTokenExpireMinutes { get; set; }
 
-        public static long GabTransBusinessGLId { get; set; }
+        public static long GabTransAccountGLId { get; set; }
 
         public static string GlobusBankClientId { get; set; }
         public static string GlobusBankGrantType { get; set; }

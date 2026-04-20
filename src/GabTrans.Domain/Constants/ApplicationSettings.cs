@@ -25,7 +25,7 @@ namespace GabTrans.Domain.Constants
         public const string RefreshTokenExpireMinutes = "RefreshTokenExpireMinutes";
         public const string BackendEmailAddress = "BackendEmailAddress";
 
-        public const string GabTransBusinessGLId = "GabTransBusinessGLId";
+        public const string GabTransAccountGLId = "GabTransAccountGLId";
         public const string GlobusBankScope = "GlobusBankScope";
         public const string GlobusBankTokenEndpoint = "GlobusTokenEndpoint";
         public const string GlobusBankGrantType = "GlobusGrantType";

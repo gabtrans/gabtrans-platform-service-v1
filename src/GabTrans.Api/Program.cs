@@ -9,7 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Host.UseSerilog((ctx, services, cfg) => cfg.ReadFrom.Configuration(ctx.Configuration).ReadFrom.Services(services).WriteTo.Console().WriteTo.AzureBlobStorage(
     connectionString: StaticData.StorageConnectionStrings,
-    storageContainerName: "logs",
+    storageContainerName: "platforms",
     storageFileName: $"log_{DateTime.Now.ToString("yyyy-MM-dd")}.txt",
     outputTemplate: "{Timestamp:HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}")
 );
