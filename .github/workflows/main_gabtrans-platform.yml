@@ -1,7 +1,4 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy ASP.Net Core app to Azure Web App - gabtrans-platform
+name: Build and deploy ASP.Net Core app to Azure Web App - gabtrans
 
 on:
   push:
@@ -10,9 +7,10 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: windows-latest
     permissions:
+      id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
 
     steps:
@@ -23,33 +21,27 @@ jobs:
         with:
           dotnet-version: '8.x'
 
+      # Locate .csproj file automatically
+      - name: Locate project file
+        id: find-project
+        shell: bash
+        run: |
+          PROJECT_FILE=$(find . -maxdepth 7 -name "*.csproj" | head -n 1)
+          echo "project=$PROJECT_FILE" >> $GITHUB_OUTPUT
+
+      # Build project
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build "${{ steps.find-project.outputs.project }}" -c Release
 
+      # Publish to a local folder (publish output)
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
-
-      - name: Upload artifact for deployment job
-        uses: actions/upload-artifact@v4
-        with:
-          name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
-
-  deploy:
-    runs-on: windows-latest
-    needs: build
-    
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v4
-        with:
-          name: .net-app
-      
+        run: dotnet publish "${{ steps.find-project.outputs.project }}" -c Release -o publish
+     
+  # Deploy directly to Azure
       - name: Deploy to Azure Web App
-        id: deploy-to-webapp
         uses: azure/webapps-deploy@v3
         with:
           app-name: 'gabtrans-platform'
           slot-name: 'Production'
-          package: .
+          package: publish
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_1A22C55713994570A997B06DCE3A6724 }}
