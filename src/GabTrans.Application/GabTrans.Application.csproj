@@ -1,0 +1,64 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Features\Sms\**" />
+    <EmbeddedResource Remove="Features\Sms\**" />
+    <None Remove="Features\Sms\**" />
+    <None Remove="Features\AccountLimit\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="DataTransfer\" />
+    <None Remove="Models\" />
+    <None Remove="Entities\" />
+    <None Remove="Enums\" />
+    <None Remove="Features\" />
+    <None Remove="Features\AccountWallet\" />
+    <None Remove="Features\Beneficiary\" />
+    <None Remove="Features\ComplianceReview\" />
+    <None Remove="Features\Country\" />
+    <None Remove="Features\Customer\" />
+    <None Remove="Features\CustomerAccount\" />
+    <None Remove="Features\Dashboard\" />
+    <None Remove="Features\Director\" />
+    <None Remove="Features\Gift\" />
+    <None Remove="Features\Onboarding\" />
+    <None Remove="Features\Payment\" />
+    <None Remove="Features\RiskFactor\" />
+    <None Remove="Features\RiskParameter\" />
+    <None Remove="Features\Sms\" />
+    <None Remove="Features\VirtualCard\" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Azure.Storage.Blobs" Version="12.25.1" />
+    <PackageReference Include="EPPlus" Version="8.2.1" />
+    <PackageReference Include="FluentValidation" Version="12.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="9.0.9">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="BCrypt.Net-Core" Version="1.6.0" />
+    <PackageReference Include="MimeKit" Version="4.14.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.9" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.4" />
+    <PackageReference Include="QuestPDF" Version="2025.7.2" />
+    <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
+    <PackageReference Include="Serilog.Sinks.AzureBlobStorage" Version="4.0.5" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GabTrans.Domain\GabTrans.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Features\Wallet\Commands\" />
+    <Folder Include="Features\Wallet\Queries\" />
+    <Folder Include="Validator\" />
+  </ItemGroup>
+</Project>
