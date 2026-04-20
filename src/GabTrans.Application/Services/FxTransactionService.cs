@@ -110,7 +110,7 @@ namespace GabTrans.Application.Services
             string reference = _sequenceService.Settlement(2);
 
             //Get balance for merchant wallet
-            var tillWallet = await _walletRepository.GetAsync(StaticData.GabTransBusinessGLId, fxRateLog.ToCurrency);
+            var tillWallet = await _walletRepository.GetAsync(StaticData.GabTransAccountGLId, fxRateLog.ToCurrency);
             if (tillWallet is null)
             {
                 return new ApiResponse
@@ -191,7 +191,7 @@ namespace GabTrans.Application.Services
             settlement = new SettlementModel
             {
                 Currency = fxRateLog.FromCurrency,
-                AccountId = StaticData.GabTransBusinessGLId,
+                AccountId = StaticData.GabTransAccountGLId,
                 Reference = $"FX{reference}",
                 TransactionAmount = fxRateLog.FromAmount,
                 TransactionType = TransactionTypes.Conversion,
@@ -220,7 +220,7 @@ namespace GabTrans.Application.Services
             settlement = new SettlementModel
             {
                 Currency = fxRateLog.ToCurrency,
-                AccountId = StaticData.GabTransBusinessGLId,
+                AccountId = StaticData.GabTransAccountGLId,
                 Reference = $"FX{reference}",
                 TransactionAmount = fxRateLog.ToAmount,
                 TransactionType = TransactionTypes.Conversion,

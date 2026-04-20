@@ -19,37 +19,37 @@ namespace GabTrans.Infrastructure.Repositories
             //StaticData.Countries = await _context.Countries.ToListAsync();
 
             var integrations = await _context.Integrations.ToListAsync();
-            var messageCredentials = await _context.MessageCredentials.ToListAsync();
+           // var messageCredentials = await _context.MessageCredentials.ToListAsync();
             var applicationSettings = await _context.ApplicationSettings.ToListAsync();
 
             StaticData.Logo = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.Logo).Value;
 
             StaticData.AppUrl = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.AppUrl).Value;
 
-            StaticData.OtpLifetime = long.Parse(applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.OtpLifetime).Value);
+            //StaticData.OtpLifetime = long.Parse(applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.OtpLifetime).Value);
 
-            StaticData.Jwtkey = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.Jwtkey).Value;
+            //StaticData.Jwtkey = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.Jwtkey).Value;
 
-            StaticData.JwtIssuer = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.JwtIssuer).Value;
+            //StaticData.JwtIssuer = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.JwtIssuer).Value;
 
-            StaticData.InvitationLink = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.InvitationUrl).Value;
+            //StaticData.InvitationLink = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.InvitationUrl).Value;
 
-            StaticData.RefreshTokenExpireMinutes = Convert.ToInt16(applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.RefreshTokenExpireMinutes).Value);
+            //StaticData.RefreshTokenExpireMinutes = Convert.ToInt16(applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.RefreshTokenExpireMinutes).Value);
 
-            StaticData.JwtExpireMinutes = Convert.ToInt16(applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.JwtExpireMinutes).Value);
+            //StaticData.JwtExpireMinutes = Convert.ToInt16(applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.JwtExpireMinutes).Value);
 
-            var infinitusPay = integrations.FirstOrDefault(x => x.Name == Domain.Constants.Integrations.InfinitusPay);
-            StaticData.InfintusURL = infinitusPay.BaseUrl;
-            StaticData.InfintusApiKey = infinitusPay.SecretKey;
+            //var infinitusPay = integrations.FirstOrDefault(x => x.Name == Domain.Constants.Integrations.InfinitusPay);
+            //StaticData.InfintusURL = infinitusPay.BaseUrl;
+            //StaticData.InfintusApiKey = infinitusPay.SecretKey;
 
-            var smtp = messageCredentials.FirstOrDefault(x => x.Name == MessageCredentials.SMTP);
-            StaticData.SmtpHost = smtp.Host;
-            StaticData.SmtpDisplayName = smtp.DisplayName;
-            StaticData.SmtpPassword = smtp.Password;
-            StaticData.SmtpPort = Convert.ToInt16(smtp.Port);
-            StaticData.SmtpSender = smtp.Sender;
-            StaticData.SmtpEncryption = smtp.Encryption;
-            StaticData.SmtpUsername = smtp.Username;
+            //var smtp = messageCredentials.FirstOrDefault(x => x.Name == MessageCredentials.SMTP);
+            //StaticData.SmtpHost = smtp.Host;
+            //StaticData.SmtpDisplayName = smtp.DisplayName;
+            //StaticData.SmtpPassword = smtp.Password;
+            //StaticData.SmtpPort = Convert.ToInt16(smtp.Port);
+            //StaticData.SmtpSender = smtp.Sender;
+            //StaticData.SmtpEncryption = smtp.Encryption;
+            //StaticData.SmtpUsername = smtp.Username;
 
             StaticData.StorageContainer = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.Storage).Value;
 
@@ -57,7 +57,7 @@ namespace GabTrans.Infrastructure.Repositories
 
             StaticData.BackendEmailAddress = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.BackendEmailAddress).Value;
 
-            StaticData.GabTransBusinessGLId = Convert.ToInt64(applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.GabTransBusinessGLId).Value);
+            StaticData.GabTransAccountGLId = Convert.ToInt64(applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.GabTransAccountGLId).Value);
 
             //GlobusBank
             var globusTokenEndpoint = applicationSettings.Where(x => x.Name == ApplicationSettings.GlobusBankTokenEndpoint).FirstOrDefault();
