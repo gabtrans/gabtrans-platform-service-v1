@@ -3,24 +3,24 @@
   "WorkspaceRootPath": "C:\\Projects\\gabtrans-platform-v1\\src\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|solutionrelative:gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\services\\gremitservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|solutionrelative:gabtrans.application\\services\\gremitservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BAB842D5-01C7-4AED-A2B0-F879610CE90E}|GabTrans.Domain\\GabTrans.Domain.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.domain\\constants\\transactionstatuses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BAB842D5-01C7-4AED-A2B0-F879610CE90E}|GabTrans.Domain\\GabTrans.Domain.csproj|solutionrelative:gabtrans.domain\\constants\\transactionstatuses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\services\\banktransferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|solutionrelative:gabtrans.application\\services\\banktransferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{60096864-8079-4420-A5CE-636431FCECAC}|GabTrans.Api\\GabTrans.Api.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.api\\configuration\\backgroundjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60096864-8079-4420-A5CE-636431FCECAC}|GabTrans.Api\\GabTrans.Api.csproj|solutionrelative:gabtrans.api\\configuration\\backgroundjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\services\\banktransferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|solutionrelative:gabtrans.application\\services\\banktransferservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|solutionrelative:gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BAB842D5-01C7-4AED-A2B0-F879610CE90E}|GabTrans.Domain\\GabTrans.Domain.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.domain\\constants\\transactionstatuses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BAB842D5-01C7-4AED-A2B0-F879610CE90E}|GabTrans.Domain\\GabTrans.Domain.csproj|solutionrelative:gabtrans.domain\\constants\\transactionstatuses.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\services\\globusbankservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,11 +46,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 17,
+          "SelectedChildIndex": 16,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "TransactionStatuses.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Domain\\Constants\\TransactionStatuses.cs",
               "RelativeDocumentMoniker": "GabTrans.Domain\\Constants\\TransactionStatuses.cs",
@@ -111,13 +111,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "BankTransferService.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\BankTransferService.cs",
               "RelativeDocumentMoniker": "GabTrans.Application\\Services\\BankTransferService.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\BankTransferService.cs",
               "RelativeToolTip": "GabTrans.Application\\Services\\BankTransferService.cs",
-              "ViewState": "AgIAABoAAAAAAAAAAAAYwCkAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAYwDEAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-23T21:48:14.737Z",
               "EditorCaption": ""
@@ -149,20 +149,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GRemitService.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GRemitService.cs",
               "RelativeDocumentMoniker": "GabTrans.Application\\Services\\GRemitService.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GRemitService.cs",
               "RelativeToolTip": "GabTrans.Application\\Services\\GRemitService.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAAAYwFUAAAA9AAAAAAAAAA==",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAYwIAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T20:53:26.78Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "GRemitClientIntegration.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Integrations\\GRemitClientIntegration.cs",
               "RelativeDocumentMoniker": "GabTrans.Infrastructure\\Integrations\\GRemitClientIntegration.cs",
@@ -175,13 +175,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "BackgroundJob.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "RelativeDocumentMoniker": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "RelativeToolTip": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAApAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T20:52:37.824Z",
               "EditorCaption": ""
