@@ -80,7 +80,7 @@ public class GlobusBankService(IAccountRepository accountRepository, ITransferRe
             };
         }
 
-        return new ApiResponse { Data = nameEnquiry.result, Message = "Successful", Success = true };
+        return new ApiResponse { Data = nameEnquiry.result.accountname, Message = "Successful", Success = true };
     }
 
     public async Task<ApiResponse> TransactionQueryAsync(Transfer transfer)
