@@ -72,7 +72,7 @@ namespace GabTrans.Application.Services
                 _logService.LogError("GRemitService", "ConfirmationAsync", ex);
             }
         }
- 
+
         public async Task ApprovedAsync(GremitAccount gremitApplication, string reference)
         {
             string updatedAt = DateTime.Now.ToString("yyyy-MM-dd");
@@ -204,132 +204,6 @@ namespace GabTrans.Application.Services
 
             return true;
         }
-
-        //public async Task<bool> MobileMoneyAsync(GremitApplication gremitApplication)
-        //{
-        //    try
-        //    {
-        //        var response = await _gRemitClientIntegration.GetTransactionsAsync(gremitApplication);
-        //        if (response is null || response.Result is null) return false;
-
-        //        if (!response.Result.ResultCode.Equals("1000")) return false;
-
-        //        if (response.Result.Details.Transaction.Count > 0) _logService.LogInfo("GRemitService", "MobileMoneyAsync", $"Total number of transactions retrieved from GRemit is : {response.Result.Details.Transaction.Count}");
-
-        //        foreach (var transaction in response.Result.Details.Transaction)
-        //        {
-        //            string bankCode = "";
-
-        //            var payoutDetails = await _gatewayPayoutRepository.DetailsAsync(transaction.ReferenceNo);
-        //            if (payoutDetails is not null) continue;
-
-        //            var mobileOperator = StaticData.MobileMoneyProviders.FirstOrDefault(x => x.Name == transaction.Receiver.BeneficiaryBankCode);
-        //            if (mobileOperator is null)
-        //            {
-        //                _logService.LogInfo("GRemitService", "MobileMoneyAsync", $"Invalid Bank Code for GRemit:: Reference :{transaction.ReferenceNo}");
-        //                continue;
-        //            }
-
-        //            if (mobileOperator is not null) bankCode = mobileOperator.Name;
-
-        //            if (string.IsNullOrEmpty(transaction.Receiver.BeneficiaryBankCode))
-        //            {
-        //                _logService.LogInfo("GRemitService", "MobileMoneyAsync", $"Bank Code is empty for GRemit:: Reference :{transaction.ReferenceNo}");
-        //                continue;
-        //            }
-
-        //            if (transaction.Receiver.BeneficiaryBankCode.Length > 3) bankCode = transaction.Receiver.BeneficiaryBankCode;
-
-        //            if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "NGA") transaction.Receiver.CountryCode = "NG";
-        //            if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "GHA") transaction.Receiver.CountryCode = "GH";
-        //            if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "KEN") transaction.Receiver.CountryCode = "KE";
-        //            if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "ZAF") transaction.Receiver.CountryCode = "ZA";
-
-        //            //Get Fees
-        //            var feeDetails = await _gatewayPayoutRepository.GetFeeAsync(gremitApplication.BusinessId, transaction.Remittance.ReceivingCurrency);
-        //            if (feeDetails is null) continue;
-
-        //            decimal fee = Convert.ToDecimal(feeDetails.Fee);
-
-        //            decimal amount = Convert.ToDecimal(transaction.Remittance.ReceivingAmount);
-
-        //            decimal totalAmount = Math.Round(amount + fee, 2);
-
-        //            decimal balance = await walletTransactionService.GetBalanceAsync(gremitApplication.BusinessId, transaction.Remittance.ReceivingCurrency);
-        //            if (balance <= totalAmount)
-        //            {
-        //                _logService.LogInfo("GRemitService", "MobileMoneyAsync ", $"Low balance and unable to process payment for reference: {transaction.ReferenceNo}");
-        //                continue;
-        //            }
-
-        //            var credentials = StaticData.BusinessApiCredentials.Where(x => x.BusinessId == gremitApplication.BusinessId).FirstOrDefault();
-        //            if (credentials is null)
-        //            {
-        //                _logService.LogInfo("GRemitService", $"MobileMoneyAsync:: Unable to fetch credentials for reference::", $"{transaction.ReferenceNo}");
-        //                continue;
-        //            }
-
-        //            string publicKey = credentials.TestPubKey;
-        //            string secretKey = credentials.TestSecKey;
-
-        //            if (StaticData.Domain == Domains.Live)
-        //            {
-        //                publicKey = credentials.LivePubKey;
-        //                secretKey = credentials.LiveSecKey;
-        //            }
-
-        //            var account = await _accountService.ValidateAsync(transaction.Receiver.AccountNo, bankCode, secretKey);
-        //            if (string.IsNullOrEmpty(account))
-        //            {
-        //                _logService.LogInfo("GRemitService", "MobileMoneyAsync", $"Unable to validate account for reference: {transaction.ReferenceNo}");
-        //                continue;
-        //            }
-
-        //            bool insert = await _gatewayPayoutRepository.InsertAsync(gremitApplication.BusinessId, transaction.ReferenceNo, JsonConvert.SerializeObject(transaction), Gateways.GRemit);
-        //            if (!insert)
-        //            {
-        //                _logService.LogInfo("GRemitService", "MobileMoneyAsync", $"Unable to insert reference: {transaction.ReferenceNo} into gateway payout table");
-        //                continue;
-        //            }
-
-        //            string payer = string.Concat(transaction.Sender.FirstName, " ", transaction.Sender.LastName, " ", transaction.Sender.MiddleName);
-
-        //            string payerAddress = string.Concat(transaction.Sender.AddressLine1, " ", transaction.Sender.CityName, " ", transaction.Sender.StateCode, ", ", transaction.Sender.CountryCode);
-
-        //            var meta = new PayoutMeta { sender_address = payerAddress, sender_name = payer };
-
-        //            var payoutRequest = new BudPayoutRequest
-        //            {
-        //                reference = transaction.ReferenceNo,
-        //                account_number = transaction.Receiver.AccountNo,
-        //                amount = transaction.Remittance.ReceivingAmount,
-        //                currency = transaction.Remittance.ReceivingCurrency,
-        //                narration = payer.Trim(),
-        //                bank_code = bankCode,//loop valid 
-        //                bank_name = transaction.Receiver.BeneficiaryBankName
-        //            };
-
-        //            _logService.LogInfo("GRemitService", $"MobileMoneyAsync:: Payout Payload for reference::{transaction.ReferenceNo} ", JsonConvert.SerializeObject(payoutRequest));
-
-        //            //Create Payout
-        //            var result = await merchantService.InitiatePayoutAsync(payoutRequest, publicKey, secretKey);
-        //            if (!result.Status)
-        //            {
-        //                _logService.LogInfo("GRemitService", "MobileMoneyAsync:: Unable to process request for ", transaction.ReferenceNo);
-        //                continue;
-        //            }
-
-        //            await _gatewayPayoutRepository.UpdateStatusAsync(transaction.ReferenceNo, RemitlyStatuses.Paying);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        _logService.LogError("GRemitService", "MobileMoneyAsync", ex);
-        //        return false;
-        //    }
-
-        //    return true;
-        //}
 
         public async Task ProcessAsync()
         {
