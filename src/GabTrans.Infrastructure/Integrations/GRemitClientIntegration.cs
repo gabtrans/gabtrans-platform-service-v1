@@ -128,6 +128,8 @@ namespace GabTrans.Infrastructure.Integrations
                             </Data>
                         ";
 
+                _logService.LogInfo("GRemitClientIntegration", "ApproveAsync Request from GRemit:: ", JsonConvert.SerializeObject(body));
+
                 var soapServiceChannel = new ServiceSoapClient(ServiceSoapClient.EndpointConfiguration.ServiceSoap);
                 var gremitResponse = await soapServiceChannel.Transaction_Update_MarkAsPaidAsync(body);
                 //if (gremitResponse is null) return new GRemitTestResponse();
