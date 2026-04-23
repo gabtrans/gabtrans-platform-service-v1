@@ -119,12 +119,16 @@ namespace GabTrans.Application.Services
                         string bankCode = "";
 
                         var platformDetails = await _platformTransferRepository.DetailsAsync(transaction.ReferenceNo);
-                        if (platformDetails is not null && !string.IsNullOrEmpty(platformDetails.Response)) continue;
+                        if (platformDetails is not null)
+                        {
+                            _logService.LogInfo("GRemitService", "DepositAsync", $"Reference already exists on platform:: Reference :{transaction.ReferenceNo}");
+                            continue;
+                        }
 
                         var transfer = await _transferRepository.DetailsAsync(transaction.ReferenceNo);
                         if (transfer is not null)
                         {
-                            _logService.LogInfo("GRemitService", "DepositAsync", $"Reference already exists:: Reference :{transaction.ReferenceNo}");
+                            _logService.LogInfo("GRemitService", "DepositAsync", $"Reference already exists on transfer:: Reference :{transaction.ReferenceNo}");
                             continue;
                         }
 
