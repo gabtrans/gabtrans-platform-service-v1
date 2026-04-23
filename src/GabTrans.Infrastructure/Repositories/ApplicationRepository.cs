@@ -22,6 +22,12 @@ namespace GabTrans.Infrastructure.Repositories
             var messageCredentials = await _context.MessageCredentials.ToListAsync();
             var applicationSettings = await _context.ApplicationSettings.ToListAsync();
 
+            StaticData.Banks = await _context.Banks.ToListAsync();
+
+            StaticData.GRemitBanks = await _context.GRemitBanks.ToListAsync();
+
+            StaticData.GremitAccounts = await _context.GremitAccounts.ToListAsync();
+
             StaticData.Logo = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.Logo).Value;
 
             StaticData.AppUrl = applicationSettings.FirstOrDefault(x => x.Name == ApplicationSettings.AppUrl).Value;
@@ -69,8 +75,8 @@ namespace GabTrans.Infrastructure.Repositories
             var globusGrantType = applicationSettings.Where(x => x.Name == ApplicationSettings.GlobusBankGrantType).FirstOrDefault();
             StaticData.GlobusBankGrantType = globusGrantType.Value;
 
-           // var globusPayout = applicationSettings.Where(x => x.Name == ApplicationSettings.GlobusPayoutAccount).FirstOrDefault();
-           // StaticData.GlobusPayoutAccount = globusPayout.Value;
+            // var globusPayout = applicationSettings.Where(x => x.Name == ApplicationSettings.GlobusPayoutAccount).FirstOrDefault();
+            // StaticData.GlobusPayoutAccount = globusPayout.Value;
 
             var globusAccountName = applicationSettings.Where(x => x.Name == ApplicationSettings.GlobusAccountName).FirstOrDefault();
             StaticData.GlobusAccountName = globusAccountName.Value;

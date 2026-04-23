@@ -9,7 +9,7 @@ public interface IPlatformTransactionRepository
     //Task<bool> UpdateApplicationAsync(long id);
     Task<IEnumerable<PlatformTransaction>> GetAsync();
     Task<IEnumerable<PlatformTransaction>> GetPendingAsync();
-    Task<bool> UpdateAsync(long id, string status);
+    Task<bool> UpdateStatusAsync(long id, string status);
     Task<IEnumerable<PlatformTransaction>> GetAsync(string status, List<long> accountIds);
     Task<IEnumerable<PlatformTransaction>> GetAsync(long accountId);
     Task<IEnumerable<PlatformTransaction>> GetAsync(long accountId, string status);
