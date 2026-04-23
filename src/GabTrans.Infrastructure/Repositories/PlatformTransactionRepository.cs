@@ -119,7 +119,7 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
     {
         try
         {
-            var tranDetails = await _dbContext.PlatformTransactions.FirstOrDefaultAsync(x => x.Reference == reference);
+            var tranDetails = await _dbContext.PlatformTransactions.Where(x => x.Reference == reference).FirstOrDefaultAsync();
             if (tranDetails is null) return false;
             tranDetails.Status = status;
             if (response is not null) tranDetails.Response = response;

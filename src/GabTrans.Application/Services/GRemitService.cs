@@ -182,13 +182,13 @@ namespace GabTrans.Application.Services
                         var transferResponse = await _bankTransferService.TransferAsync(transferRequest, gremitApplication.AccountId);
                         if (!transferResponse.Success)
                         {
-                            await _platformTransferRepository.UpdateAsync(transaction.ReferenceNo, GRemitStatuses.Error);
+                            await _platformTransferRepository.UpdateStatusAsync(transaction.ReferenceNo, GRemitStatuses.Error);
 
                             _logService.LogInfo("GRemitService", "DepositAsync:: Unable to process request for ", transaction.ReferenceNo);
                             continue;
                         }
 
-                        await _platformTransferRepository.UpdateAsync(transaction.ReferenceNo, GRemitStatuses.Paying);
+                        await _platformTransferRepository.UpdateStatusAsync(transaction.ReferenceNo, GRemitStatuses.Paying);
                     }
                     catch (Exception ex)
                     {
