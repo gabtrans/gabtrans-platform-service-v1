@@ -41,6 +41,15 @@ namespace GabTrans.Application.Services
 
         public async Task<ApiResponse> TransferAsync(BankTransferRequest request, long accountId)
         {
+            var transfer = await _transferRepository.DetailsAsync(request.Reference);
+            if (transfer is not null)
+            {
+                return new ApiResponse
+                {
+                    Message = "Reference already exists"
+                };
+            }
+
             var account = await _accountRepository.DetailsAsync(accountId);
             if (account == null)
             {
@@ -102,7 +111,7 @@ namespace GabTrans.Application.Services
         {
             var wallet = bankTransfer.Wallet;
             var request = bankTransfer.BankTransferRequest;
-            
+
             string reference = bankTransfer.BankTransferRequest.Reference;
 
             var centralWallet = await _walletRepository.GetAsync(StaticData.GabTransAccountGLId, request.Currency);
@@ -269,7 +278,7 @@ namespace GabTrans.Application.Services
                 };
             }
 
-           // await _emailService.TransferRequestAsync(accountName, request.Currency, request.Amount, transfer.CreatedAt);
+            // await _emailService.TransferRequestAsync(accountName, request.Currency, request.Amount, transfer.CreatedAt);
 
             return new ApiResponse { Success = true, Message = "Transfer successfully logged for processing", Data = reference };
         }
@@ -310,7 +319,7 @@ namespace GabTrans.Application.Services
                 };
             }
 
-           // await _emailService.TransferRequestAsync(accountName, request.Currency, request.Amount, transfer.CreatedAt);
+            // await _emailService.TransferRequestAsync(accountName, request.Currency, request.Amount, transfer.CreatedAt);
 
             return new ApiResponse { Success = true, Message = "Transfer successfully logged for processing", Data = reference };
         }
