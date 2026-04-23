@@ -46,20 +46,26 @@ namespace GabTrans.Application.Services
                         var gremitApplication = StaticData.GremitAccounts.FirstOrDefault(x => x.AccountId == transfer.AccountId && x.Country == Countries.Nigeria);
                         if (gremitApplication is null) continue;
 
-                        switch (details.Status)
-                        {
-                            case TransactionStatuses.Successful:
-                                await ApprovedAsync(gremitApplication, transfer.Reference);
-                                break;
-                            case TransactionStatuses.Reversed:
-                                await RejectAsync(gremitApplication, transfer.Reference, reason);
-                                break;
-                            case TransactionStatuses.Failed:
-                                await RejectAsync(gremitApplication, transfer.Reference, reason);
-                                break;
-                            default:
-                                break;
-                        }
+                        //switch (details.Status)
+                        //{
+                        //    case TransactionStatuses.Successful:
+                        //        await ApprovedAsync(gremitApplication, transfer.Reference);
+                        //        break;
+                        //    case TransactionStatuses.Reversed:
+                        //        await RejectAsync(gremitApplication, transfer.Reference, reason);
+                        //        break;
+                        //    case TransactionStatuses.Failed:
+                        //        await RejectAsync(gremitApplication, transfer.Reference, reason);
+                        //        break;
+                        //    default:
+                        //        break;
+                        //}
+
+                        if (string.Equals(details.Status, TransactionStatuses.Successful, StringComparison.OrdinalIgnoreCase)) await ApprovedAsync(gremitApplication, transfer.Reference);
+
+                        if (string.Equals(details.Status, TransactionStatuses.Reversed, StringComparison.OrdinalIgnoreCase)) await RejectAsync(gremitApplication, transfer.Reference, reason);
+
+                        if (string.Equals(details.Status, TransactionStatuses.Successful, StringComparison.OrdinalIgnoreCase)) await RejectAsync(gremitApplication, transfer.Reference, reason);
                     }
                     catch (Exception ex)
                     {
@@ -77,12 +83,12 @@ namespace GabTrans.Application.Services
         {
             string updatedAt = DateTime.Now.ToString("yyyy-MM-dd");
 
-            var approve = await _gRemitClientIntegration.ApproveAsync(gremitApplication, reference, updatedAt);
-            if (approve is null || approve.Result is null) return;
+            var response = await _gRemitClientIntegration.ApproveAsync(gremitApplication, reference, updatedAt);
+            if (response is null || response.Result is null) return;
 
-            if (approve.Result.ResultCode != "1000") return;
+            if (response.Result.ResultCode != "1000") return;
 
-            await _platformTransferRepository.UpdateStatusAsync(reference, GRemitStatuses.Paid, JsonConvert.SerializeObject(approve));
+            await _platformTransferRepository.UpdateStatusAsync(reference, GRemitStatuses.Paid, JsonConvert.SerializeObject(response));
         }
 
         public async Task RejectAsync(GremitAccount gremitApplication, string reference, string reason)
