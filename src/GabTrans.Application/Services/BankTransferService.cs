@@ -102,8 +102,17 @@ namespace GabTrans.Application.Services
         {
             var wallet = bankTransfer.Wallet;
             var request = bankTransfer.BankTransferRequest;
+            
+            string reference = bankTransfer.BankTransferRequest.Reference;
 
-            string reference = _sequenceService.Settlement(3);
+            var centralWallet = await _walletRepository.GetAsync(StaticData.GabTransAccountGLId, request.Currency);
+            if (centralWallet is null)
+            {
+                return new ApiResponse
+                {
+                    Message = "No wallet found for the account"
+                };
+            }
 
             var settlement = new SettlementModel
             {
@@ -164,6 +173,37 @@ namespace GabTrans.Application.Services
                 };
             }
 
+            var feeSettlement = new SettlementModel
+            {
+                Currency = request.Currency,
+                AccountId = centralWallet.AccountId,
+                Reference = reference,
+                TransactionAmount = bankTransfer.Fee,
+                TransactionType = TransactionTypes.Charges,
+                WalletId = centralWallet.Id,
+                Note = $"{reference}|{request.Reason}",
+                TransactionFee = 0,
+                DebitCreditIndicator = DebitCreditIndicators.Credit
+            };
+            string feeCredit = await _settlementRepository.ProcessAsync(feeSettlement);
+            if (string.IsNullOrEmpty(feeCredit))
+            {
+                return new ApiResponse
+                {
+                    Message = "Payment failed"
+                };
+            }
+
+            if (!string.Equals(feeCredit, "duplicate", StringComparison.OrdinalIgnoreCase) && !string.Equals(feeCredit, TransactionStatuses.Successful, StringComparison.OrdinalIgnoreCase))
+            {
+                return new ApiResponse
+                {
+                    Message = feeCredit
+                };
+            }
+
+            if (string.Equals(request.Currency, Currencies.NGN, StringComparison.OrdinalIgnoreCase) && request.BankCode == "000027") request.BankCode = "103";
+
             var recipient = await _recipientRepository.GetAsync(wallet.AccountId, request.AccountNumber, request.Currency, string.Empty);
             if (recipient is not null) return await ExistingRecipientAsync(bankTransfer, wallet.AccountId, recipient.Id, reference, bankTransfer.Fee, wallet.Id, request.AccountName);
 
@@ -207,11 +247,12 @@ namespace GabTrans.Application.Services
                 Fee = fee,
                 Gateway = request.Currency == Currencies.NGN ? PaymentGateways.Globus : PaymentGateways.Infinitus,
                 PaymentMethod = request.PaymentMethod,
-                Status = string.Equals(request.Currency, Currencies.NGN, StringComparison.OrdinalIgnoreCase)?TransactionStatuses.Approved: TransactionStatuses.Pending,
+                Status = string.Equals(request.Currency, Currencies.NGN, StringComparison.OrdinalIgnoreCase) ? TransactionStatuses.Approved : TransactionStatuses.Pending,
                 TransferRecipientId = receipientId,
                 ProcessingStatus = TransactionStatuses.Pending,
                 Reason = request.Reason,
                 Reference = reference,
+                MetaData = bankTransfer.BankTransferRequest.MetaData,
                 //SupportingDocument = request.SupportingDocument,
                 SourceCurrency = request.Currency
             };
@@ -228,7 +269,7 @@ namespace GabTrans.Application.Services
                 };
             }
 
-            await _emailService.TransferRequestAsync(accountName, request.Currency, request.Amount, transfer.CreatedAt);
+           // await _emailService.TransferRequestAsync(accountName, request.Currency, request.Amount, transfer.CreatedAt);
 
             return new ApiResponse { Success = true, Message = "Transfer successfully logged for processing", Data = reference };
         }
@@ -253,7 +294,7 @@ namespace GabTrans.Application.Services
                 Reason = request.Reason,
                 Reference = reference,
                 SourceCurrency = request.Currency,
-               // SupportingDocument = request.SupportingDocument,
+                // SupportingDocument = request.SupportingDocument,
             };
             bool insert = await _transferRepository.InsertAsync(transfer);
             if (!insert)
@@ -269,7 +310,7 @@ namespace GabTrans.Application.Services
                 };
             }
 
-            await _emailService.TransferRequestAsync(accountName, request.Currency, request.Amount, transfer.CreatedAt);
+           // await _emailService.TransferRequestAsync(accountName, request.Currency, request.Amount, transfer.CreatedAt);
 
             return new ApiResponse { Success = true, Message = "Transfer successfully logged for processing", Data = reference };
         }
@@ -356,9 +397,9 @@ namespace GabTrans.Application.Services
             return new ApiResponse { Success = true, Message = "Unable to process payment" };
         }
 
-       
 
-       
+
+
         public async Task<PaginatedResponse> GetAsync(QueryTransaction queryTransaction)
         {
             var payouts = await _transferRepository.GetAsync(queryTransaction);

@@ -31,8 +31,8 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
 
     public async Task<IEnumerable<PlatformTransaction>> GetAsync(string status, List<long> accountIds)
     {
-        DateTime startDate = DateTime.UtcNow.AddDays(-4);
-        DateTime endDate = DateTime.UtcNow;
+        DateTime startDate = DateTime.Now.AddDays(-4);
+        DateTime endDate = DateTime.Now;
         return await _dbContext.PlatformTransactions.Where(x => x.CreatedAt.Date >= startDate.Date && x.CreatedAt.Date <= endDate.Date).OrderBy(x => x.CreatedAt).Where(x => x.Status == status && accountIds.Contains(x.AccountId)).ToListAsync();
     }
 
@@ -58,7 +58,7 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
 
     public async Task<IEnumerable<GremitAccount>> GetGRemitAsync(string status)
     {
-        return await _dbContext.GremitAccounts.Where(x => x.Status==status).ToListAsync();
+        return await _dbContext.GremitAccounts.Where(x => x.Status == status).ToListAsync();
     }
 
     public async Task<bool> UpdateAsync(string reference, string response)
@@ -69,7 +69,7 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
             if (platformTransaction == null) return false;
             platformTransaction.Response = response;
             await _dbContext.SaveChangesAsync();
-           return true;
+            return true;
         }
         catch (Exception ex)
         {
@@ -79,7 +79,7 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
         return false;
     }
 
-    public async Task<bool> UpdateAsync(long id, string status)
+    public async Task<bool> UpdateStatusAsync(long id, string status)
     {
         try
         {
@@ -91,7 +91,7 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
         }
         catch (Exception ex)
         {
-            _logService.LogError(nameof(PlatformTransactionRepository), nameof(UpdateAsync), ex);
+            _logService.LogError(nameof(PlatformTransactionRepository), nameof(UpdateStatusAsync), ex);
         }
 
         return false;
@@ -149,6 +149,7 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
                 Reference = reference,
                 Gateway = gateway,
                 Request = request,
+                Status = GRemitStatuses.Ready,
                 Response = string.Empty
             });
 

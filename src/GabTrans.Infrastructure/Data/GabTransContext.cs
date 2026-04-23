@@ -90,6 +90,8 @@ public partial class GabTransContext : DbContext
 
     public virtual DbSet<GremitAccount> GremitAccounts { get; set; }
 
+    public virtual DbSet<GRemitBank> GRemitBanks { get; set; }
+
     public virtual DbSet<IdentityType> IdentityTypes { get; set; }
 
     public virtual DbSet<Industry> Industries { get; set; }
@@ -1268,19 +1270,19 @@ public partial class GabTransContext : DbContext
                 .HasColumnName("updated_at");
         });
 
-            modelBuilder.Entity<Gender>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("genders_pkey");
+        modelBuilder.Entity<Gender>(entity =>
+    {
+        entity.HasKey(e => e.Id).HasName("genders_pkey");
 
-            entity.ToTable("genders", "gabtrans");
+        entity.ToTable("genders", "gabtrans");
 
-            entity.Property(e => e.Id)
-                .UseIdentityAlwaysColumn()
-                .HasColumnName("id");
-            entity.Property(e => e.Name)
-                .HasMaxLength(45)
-                .HasColumnName("name");
-        });
+        entity.Property(e => e.Id)
+            .UseIdentityAlwaysColumn()
+            .HasColumnName("id");
+        entity.Property(e => e.Name)
+            .HasMaxLength(45)
+            .HasColumnName("name");
+    });
 
         modelBuilder.Entity<GremitAccount>(entity =>
         {
@@ -2455,6 +2457,8 @@ public partial class GabTransContext : DbContext
             entity.Property(e => e.SourceCurrency)
                 .HasMaxLength(50)
                 .HasColumnName("source_currency");
+            entity.Property(e => e.MetaData)
+             .HasColumnName("meta_data");
             entity.Property(e => e.Status)
                 .HasMaxLength(45)
                 .HasDefaultValueSql("'pending'::character varying")

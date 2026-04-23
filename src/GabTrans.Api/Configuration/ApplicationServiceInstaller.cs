@@ -63,6 +63,8 @@ namespace GabTrans.Api.Configuration
             services.AddTransient<IAzureStorageService, AzureStorageService>();
             services.AddTransient<IGlobusBankService, GlobusBankService>();
             services.AddTransient<IAccountRequestService, AccountRequestService>();
+            services.AddTransient<IGRemitService, GRemitService>();
+            services.AddTransient<IBankTransferService, BankTransferService>();
 
             services.AddValidatorsFromAssemblyContaining<Program>();
         }

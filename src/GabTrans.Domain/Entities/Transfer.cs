@@ -55,5 +55,7 @@ public partial class Transfer
 
     public string? Comment { get; set; }
 
+    public string? MetaData { get; set; }
+
     public virtual Account Account { get; set; } = null!;
 }

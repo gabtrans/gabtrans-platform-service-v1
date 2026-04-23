@@ -56,7 +56,7 @@ namespace GabTrans.Domain.Models
         public static string GlobusBankBaseURL { get; set; }
         public static string GlobusBankTokenEndpoint { get; set; }
         public static GlobusSessionToken GlobusSessionToken { get; set; }
-        public static List<GremitAccount> GremitApplications { get; set; }
+        public static List<GremitAccount> GremitAccounts { get; set; }
         public static List<Bank> Banks { get; set; }
         public static List<GRemitBank> GRemitBanks { get; set; }
     }

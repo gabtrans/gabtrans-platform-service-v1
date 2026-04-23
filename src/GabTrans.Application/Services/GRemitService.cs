@@ -26,7 +26,7 @@ namespace GabTrans.Application.Services
         {
             try
             {
-                var applicationIds = StaticData.GremitApplications.Where(x => string.Equals(x.Status, AccountStatuses.Active, StringComparison.OrdinalIgnoreCase)).DistinctBy(x => x.AccountId).Select(x => x.AccountId).ToList();
+                var applicationIds = StaticData.GremitAccounts.Where(x => string.Equals(x.Status, AccountStatuses.Active, StringComparison.OrdinalIgnoreCase)).DistinctBy(x => x.AccountId).Select(x => x.AccountId).ToList();
 
                 var transfers = await _platformTransferRepository.GetAsync(GRemitStatuses.Paying, applicationIds);
 
@@ -34,29 +34,36 @@ namespace GabTrans.Application.Services
 
                 foreach (var transfer in transfers)
                 {
-                    var details = await _transferRepository.DetailsAsync(transfer.Reference);
-                    if (details is null) continue;
-
-                    if (string.Equals(details.Status, TransactionStatuses.Pending, StringComparison.OrdinalIgnoreCase)) continue;
-
-                    string reason = details.FailureReason ?? "session timeout from the beneficiary bank";
-
-                    var gremitApplication = StaticData.GremitApplications.Where(x => x.AccountId == transfer.AccountId && x.Country == Countries.Nigeria).FirstOrDefault();
-                    if (gremitApplication is null) continue;
-
-                    switch (details.Status)
+                    try
                     {
-                        case TransactionStatuses.Success:
-                            await ApprovedAsync(gremitApplication, transfer.Reference);
-                            break;
-                        case TransactionStatuses.Reversed:
-                            await RejectAsync(gremitApplication, transfer.Reference, reason);
-                            break;
-                        case TransactionStatuses.Failed:
-                            await RejectAsync(gremitApplication, transfer.Reference, reason);
-                            break;
-                        default:
-                            break;
+                        var details = await _transferRepository.DetailsAsync(transfer.Reference);
+                        if (details is null) continue;
+
+                        if (string.Equals(details.Status, TransactionStatuses.Pending, StringComparison.OrdinalIgnoreCase)) continue;
+
+                        string reason = details.FailureReason ?? "session timeout from the beneficiary bank";
+
+                        var gremitApplication = StaticData.GremitAccounts.FirstOrDefault(x => x.AccountId == transfer.AccountId && x.Country == Countries.Nigeria);
+                        if (gremitApplication is null) continue;
+
+                        switch (details.Status)
+                        {
+                            case TransactionStatuses.Success:
+                                await ApprovedAsync(gremitApplication, transfer.Reference);
+                                break;
+                            case TransactionStatuses.Reversed:
+                                await RejectAsync(gremitApplication, transfer.Reference, reason);
+                                break;
+                            case TransactionStatuses.Failed:
+                                await RejectAsync(gremitApplication, transfer.Reference, reason);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _logService.LogError("GRemitService", "ConfirmationAsync", ex);
                     }
                 }
             }
@@ -68,7 +75,7 @@ namespace GabTrans.Application.Services
  
         public async Task ApprovedAsync(GremitAccount gremitApplication, string reference)
         {
-            string updatedAt = DateTime.UtcNow.ToString("yyyy-MM-dd");
+            string updatedAt = DateTime.Now.ToString("yyyy-MM-dd");
 
             var approve = await _gRemitClientIntegration.ApproveAsync(gremitApplication, reference, updatedAt);
             if (approve is null || approve.Result is null) return;
@@ -101,82 +108,86 @@ namespace GabTrans.Application.Services
 
                 foreach (var transaction in response.Result.Details.Transaction)
                 {
-                    string bankCode = "";
-
-                    var payoutDetails = await _platformTransferRepository.DetailsAsync(transaction.ReferenceNo);
-                    if (payoutDetails is not null && !string.IsNullOrEmpty(payoutDetails.Response)) continue;
-
-                    var gremitBank = StaticData.GRemitBanks.FirstOrDefault(x => x.Code == transaction.Receiver.BeneficiaryBankCode);
-                    if (gremitBank is null && transaction.Receiver.BeneficiaryBankCode.Length == 3)
+                    try
                     {
-                        _logService.LogInfo("GRemitService", "DepositAsync", $"Invalid Bank Code for GRemit Banks:: Reference :{transaction.ReferenceNo}");
-                        continue;
+                        string bankCode = "";
+
+                        var platformDetails = await _platformTransferRepository.DetailsAsync(transaction.ReferenceNo);
+                        if (platformDetails is not null && !string.IsNullOrEmpty(platformDetails.Response)) continue;
+
+                        var gremitBank = StaticData.GRemitBanks.FirstOrDefault(x => x.Code == transaction.Receiver.BeneficiaryBankCode);
+                        if (gremitBank is null && transaction.Receiver.BeneficiaryBankCode.Length == 3)
+                        {
+                            _logService.LogInfo("GRemitService", "DepositAsync", $"Invalid Bank Code for GRemit Banks:: Reference :{transaction.ReferenceNo}");
+                            continue;
+                        }
+
+                        bankCode = gremitBank == null && transaction.Receiver.BeneficiaryBankCode.Length > 3 ? transaction.Receiver.BeneficiaryBankCode : gremitBank.GenericCode;
+
+                        _logService.LogInfo("GRemitService", "DepositAsync", $"Bank Code for BudPay:: Reference :{transaction.ReferenceNo} is {bankCode}");
+
+                        var bank = StaticData.Banks.FirstOrDefault(x => x.Code == bankCode);
+                        if (bank is null)
+                        {
+                            _logService.LogInfo("GRemitService", "DepositAsync", $"Invalid Bank Code for BudPay:: Reference :{transaction.ReferenceNo}");
+                            continue;
+                        }
+
+                        if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "NGA") transaction.Receiver.CountryCode = "NG";
+
+                        var lookUpResponse = await _globusBankService.GetNameEnquiryAsync(transaction.Receiver.AccountNo, transaction.Receiver.BeneficiaryBankCode);
+                        if (!lookUpResponse.Success)
+                        {
+                            _logService.LogInfo("GRemitService", "DepositAsync", $"Unable to validate account for reference: {transaction.ReferenceNo}");
+                            continue;
+                        }
+
+                        bool insert = await _platformTransferRepository.InsertAsync(gremitApplication.AccountId, transaction.ReferenceNo, JsonConvert.SerializeObject(transaction), PaymentGateways.Gremit);
+                        if (!insert)
+                        {
+                            _logService.LogInfo("GRemitService", "DepositAsync", $"Unable to insert reference: {transaction.ReferenceNo} into gateway payout table");
+                            continue;
+                        }
+
+                        string payer = $"{transaction.Sender.FirstName} {transaction.Sender.LastName} {transaction.Sender.MiddleName}";
+
+                        string payerAddress = $"{transaction.Sender.AddressLine1} {transaction.Sender.ZipCode}, {transaction.Sender.CityName}, {transaction.Sender.CountryCode}";
+
+                        var meta = new TransferMeta { sender_address = payerAddress, sender_name = payer, sender_currency = transaction.Remittance.SendingCurrency, sender_country = transaction.Sender.CountryCode, sender_amount = transaction.Remittance.SendingAmount };
+
+                        var transferRequest = new BankTransferRequest
+                        {
+                            Reference = transaction.ReferenceNo,
+                            AccountNumber = transaction.Receiver.AccountNo,
+                            Amount = decimal.Parse(transaction.Remittance.ReceivingAmount, CultureInfo.InvariantCulture),
+                            Currency = transaction.Remittance.ReceivingCurrency,
+                            Reason = payer.Trim(),
+                            BankCode = bank.Code,
+                            BankName = bank.Name,
+                            MetaData = JsonConvert.SerializeObject(meta),
+                            AccountName = lookUpResponse.Data.ToString(),
+                            AccountType = "Personal",
+                            CountryCode = Countries.Nigeria,
+                            PaymentMethod = PaymentMethods.Local
+                        };
+
+                        _logService.LogInfo("GRemitService", $"DepositAsync:: Payout Payload for reference::{transaction.ReferenceNo} ", JsonConvert.SerializeObject(transferRequest));
+
+                        var transferResponse = await _bankTransferService.TransferAsync(transferRequest, gremitApplication.AccountId);
+                        if (!transferResponse.Success)
+                        {
+                            await _platformTransferRepository.UpdateAsync(transaction.ReferenceNo, GRemitStatuses.Error);
+
+                            _logService.LogInfo("GRemitService", "DepositAsync:: Unable to process request for ", transaction.ReferenceNo);
+                            continue;
+                        }
+
+                        await _platformTransferRepository.UpdateAsync(transaction.ReferenceNo, GRemitStatuses.Paying);
                     }
-
-                    bankCode = gremitBank == null && transaction.Receiver.BeneficiaryBankCode.Length > 3 ? transaction.Receiver.BeneficiaryBankCode : gremitBank.GenericCode;
-
-                    _logService.LogInfo("GRemitService", "DepositAsync", $"Bank Code for BudPay:: Reference :{transaction.ReferenceNo} is {bankCode}");
-
-                    var bank = StaticData.Banks.FirstOrDefault(x => x.Code == bankCode);
-                    if (bank is null)
+                    catch (Exception ex)
                     {
-                        _logService.LogInfo("GRemitService", "DepositAsync", $"Invalid Bank Code for BudPay:: Reference :{transaction.ReferenceNo}");
-                        continue;
+                        _logService.LogError("GRemitService", "DepositAsync", ex);
                     }
-
-                    if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "NGA") transaction.Receiver.CountryCode = "NG";
-                    if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "GHA") transaction.Receiver.CountryCode = "GH";
-                    if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "KEN") transaction.Receiver.CountryCode = "KE";
-                    if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "ZAF") transaction.Receiver.CountryCode = "ZA";
-
-                    var lookUpResponse = await _globusBankService.GetNameEnquiryAsync(transaction.Receiver.AccountNo, transaction.Receiver.BeneficiaryBankCode);
-                    if (!lookUpResponse.Success)
-                    {
-                        _logService.LogInfo("GRemitService", "DepositAsync", $"Unable to validate account for reference: {transaction.ReferenceNo}");
-                        continue;
-                    }
-
-                    bool insert = await _platformTransferRepository.InsertAsync(gremitApplication.AccountId, transaction.ReferenceNo, JsonConvert.SerializeObject(transaction), PaymentGateways.Gremit);
-                    if (!insert)
-                    {
-                        _logService.LogInfo("GRemitService", "DepositAsync", $"Unable to insert reference: {transaction.ReferenceNo} into gateway payout table");
-                        continue;
-                    }
-
-                    string payer = $"{transaction.Sender.FirstName} {transaction.Sender.LastName} {transaction.Sender.MiddleName}";
-
-                    string payerAddress = $"{transaction.Sender.AddressLine1} {transaction.Sender.ZipCode}, {transaction.Sender.CityName}, {transaction.Sender.CountryCode}";
-
-                    var meta = new TransferMeta { sender_address = payerAddress, sender_name = payer, sender_currency = transaction.Remittance.SendingCurrency, sender_country = transaction.Sender.CountryCode, sender_amount = transaction.Remittance.SendingAmount };
-
-                    var transferRequest = new BankTransferRequest
-                    {
-                        Reference = transaction.ReferenceNo,
-                        AccountNumber = transaction.Receiver.AccountNo,
-                        Amount = decimal.Parse(transaction.Remittance.ReceivingAmount, CultureInfo.InvariantCulture),
-                        Currency = transaction.Remittance.ReceivingCurrency,
-                        Reason = payer.Trim(),
-                        BankCode = bank.Code,
-                        BankName = bank.Name,
-                        MetaData = JsonConvert.SerializeObject(meta),
-                        AccountName = lookUpResponse.Data.ToString(),
-                        AccountType = "Personal",
-                        CountryCode = Countries.Nigeria,
-                        PaymentMethod = PaymentMethods.Local
-                    };
-
-                    _logService.LogInfo("GRemitService", $"DepositAsync:: Payout Payload for reference::{transaction.ReferenceNo} ", JsonConvert.SerializeObject(transferRequest));
-
-                    var transferResponse = await _bankTransferService.TransferAsync(transferRequest, gremitApplication.AccountId);
-                    if (!transferResponse.Success)
-                    {
-                        await _platformTransferRepository.UpdateAsync(transaction.ReferenceNo, GRemitStatuses.Error);
-
-                        _logService.LogInfo("GRemitService", "DepositAsync:: Unable to process request for ", transaction.ReferenceNo);
-                        continue;
-                    }
-
-                    await _platformTransferRepository.UpdateAsync(transaction.ReferenceNo, GRemitStatuses.Paying);
                 }
             }
             catch (Exception ex)

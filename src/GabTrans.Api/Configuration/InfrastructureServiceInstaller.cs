@@ -80,6 +80,7 @@ namespace GabTrans.Api.Configuration
             services.AddTransient<IPendingDepositRepository, PendingDepositRepository>();
             services.AddTransient<ITransferProviderRepository, TransferProviderRepository>();
             services.AddTransient<IKycRequestRepository, KycRequestRepository>();
+            services.AddTransient<IPlatformTransactionRepository, PlatformTransactionRepository>();
 
 
             var retryPolicy = HttpPolicyExtensions.HandleTransientHttpError().RetryAsync(3);
@@ -114,6 +115,12 @@ namespace GabTrans.Api.Configuration
             .AddHttpMessageHandler<ValidateHeaderHandler>();
 
             services.AddTransient<IGlobusBankClientIntegration, GlobusBankClientIntegration>();
+
+            services.AddHttpClient<IGRemitClientIntegration, GRemitClientIntegration>()
+       .AddPolicyHandler(request => request.Method == HttpMethod.Get ? retryPolicy : noOp)
+       .AddHttpMessageHandler<ValidateHeaderHandler>();
+
+            services.AddTransient<IGRemitClientIntegration, GRemitClientIntegration>();
         }
     }
 }
