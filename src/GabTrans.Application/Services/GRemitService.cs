@@ -48,7 +48,7 @@ namespace GabTrans.Application.Services
 
                         switch (details.Status)
                         {
-                            case TransactionStatuses.Success:
+                            case TransactionStatuses.Successful:
                                 await ApprovedAsync(gremitApplication, transfer.Reference);
                                 break;
                             case TransactionStatuses.Reversed:
