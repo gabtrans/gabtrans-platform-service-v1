@@ -41,5 +41,6 @@ namespace GabTrans.Application.Abstractions.Notification
         Task<bool> RejectedTransferAsync(string emailAddress, string firstName);
         Task<bool> NewDisputeAsync(string accountName, string reference, string type, string currency, decimal amount, string comment, DateTime dateCreated);
         Task<bool> UpdateDisputeAsync(string email, string reference, string type, string currency, decimal amount, string comment, DateTime dateCreated);
+        Task<bool> LowBalanceAsync(string emailAddress, string currency, decimal balance);
     }
 }

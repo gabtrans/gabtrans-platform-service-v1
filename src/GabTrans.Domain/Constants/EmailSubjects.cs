@@ -25,5 +25,6 @@ namespace GabTrans.Domain.Constants
         public const string LoginAuthentication = "Login Authentication";
         public const string UserInvite = "User Invite";
         public const string Dispute = "Dispute Resolution";
+        public const string LowBalance = "Low Balance";
     }
 }

@@ -27,5 +27,6 @@ namespace GabTrans.Domain.Constants
         public const string UserInvite = "user-invite";
         public const string NewDispute = "new-dispute";
         public const string UpdateDispute = "update-dispute";
+        public const string LowBalance = "low-balance";
     }
 }
