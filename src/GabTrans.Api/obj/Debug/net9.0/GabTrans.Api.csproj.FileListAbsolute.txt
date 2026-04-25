@@ -1327,3 +1327,4 @@ C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\obj\Debug\net9.0\refint\GabTra
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\obj\Debug\net9.0\GabTrans.Api.pdb
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\obj\Debug\net9.0\GabTrans.Api.genruntimeconfig.cache
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\obj\Debug\net9.0\ref\GabTrans.Api.dll
+C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\obj\Debug\net9.0\compressed\4v1461deub-{0}-lzqr10ohr9-lzqr10ohr9.gz

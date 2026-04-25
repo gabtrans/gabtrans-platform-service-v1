@@ -319,7 +319,7 @@ namespace GabTrans.Infrastructure.Notification
 
                 if (!string.IsNullOrEmpty(template))
                 {
-                    string emailContent = template.Replace("{Currency}", currency).Replace("{Amount}",amount.ToString("N2")).Replace("{Url}", StaticData.AppUrl);
+                    string emailContent = template.Replace("{Currency}", currency).Replace("{Amount}", amount.ToString("N2")).Replace("{Url}", StaticData.AppUrl);
 
                     return await _mailClientIntegration.SendAsync(new SendMailRequest { Receiver = emailAddress, Subject = EmailSubjects.FundAccount, Message = emailContent });
                 }
@@ -339,7 +339,7 @@ namespace GabTrans.Infrastructure.Notification
 
                 if (!string.IsNullOrEmpty(template))
                 {
-                    string emailContent = template.Replace("{AccountName}", accountName).Replace("{Currency}",currency).Replace("{Amount}",amount.ToString("N2")).Replace("{Date}",transactionDate.ToString("MMM dd, yyyy")).Replace("{URL}", StaticData.AppUrl);
+                    string emailContent = template.Replace("{AccountName}", accountName).Replace("{Currency}", currency).Replace("{Amount}", amount.ToString("N2")).Replace("{Date}", transactionDate.ToString("MMM dd, yyyy")).Replace("{URL}", StaticData.AppUrl);
 
                     return await _mailClientIntegration.SendAsync(new SendMailRequest { Receiver = StaticData.BackendEmailAddress, Subject = EmailSubjects.TransferRequest, Message = emailContent });
                 }
@@ -359,7 +359,7 @@ namespace GabTrans.Infrastructure.Notification
 
                 if (!string.IsNullOrEmpty(template))
                 {
-                    string emailContent = template.Replace("{AccountName}", accountName).Replace("{Currency}", transfer.Currency).Replace("{Amount}", transfer.Amount.ToString("N2")).Replace("{Date}", transfer.CreatedAt.ToString("MMM dd, yyyy")).Replace("{ReferenceNumber}", transfer.Reference).Replace("{AccountNumber}",accountNumber).Replace("{Bank}",bank).Replace("{Description}",transfer.Reason);
+                    string emailContent = template.Replace("{AccountName}", accountName).Replace("{Currency}", transfer.Currency).Replace("{Amount}", transfer.Amount.ToString("N2")).Replace("{Date}", transfer.CreatedAt.ToString("MMM dd, yyyy")).Replace("{ReferenceNumber}", transfer.Reference).Replace("{AccountNumber}", accountNumber).Replace("{Bank}", bank).Replace("{Description}", transfer.Reason);
 
                     return await _mailClientIntegration.SendAsync(new SendMailRequest { Receiver = emailAddress, Subject = EmailSubjects.Transfer, Message = emailContent });
                 }
@@ -532,7 +532,7 @@ namespace GabTrans.Infrastructure.Notification
 
                 if (!string.IsNullOrEmpty(template))
                 {
-                    string emailContent = template.Replace("{AccountName}", accountName).Replace("{Currency}", currency).Replace("{Amount}",amount.ToString("N2")).Replace("{Reference}",reference).Replace("{TransactionType}",type).Replace("{Description}",comment).Replace("{Date}",dateCreated.ToString("MMM dd, yyyy"));
+                    string emailContent = template.Replace("{AccountName}", accountName).Replace("{Currency}", currency).Replace("{Amount}", amount.ToString("N2")).Replace("{Reference}", reference).Replace("{TransactionType}", type).Replace("{Description}", comment).Replace("{Date}", dateCreated.ToString("MMM dd, yyyy"));
 
                     return await _mailClientIntegration.SendAsync(new SendMailRequest { Receiver = StaticData.BackendEmailAddress, Subject = EmailSubjects.Dispute, Message = emailContent });
                 }
@@ -560,6 +560,26 @@ namespace GabTrans.Infrastructure.Notification
             catch (Exception ex)
             {
                 _logService.LogError("EmailService", "UpdateDisputeAsync", ex);
+            }
+            return false;
+        }
+
+        public async Task<bool> LowBalanceAsync(string emailAddress, string currency, decimal balance)
+        {
+            try
+            {
+                string template = _fileService.GetTemplate(EmailTemplates.LowBalance, Templates.Email);
+
+                if (!string.IsNullOrEmpty(template))
+                {
+                    string emailContent = template.Replace("{Currency}", currency).Replace("{Balance}", balance.ToString("N2"));
+
+                    return await _mailClientIntegration.SendAsync(new SendMailRequest { Receiver = emailAddress, Subject = EmailSubjects.LowBalance, Message = emailContent });
+                }
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError("EmailService", "LowBalanceAsync", ex);
             }
             return false;
         }

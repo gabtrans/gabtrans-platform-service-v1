@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GabTrans.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+23b16892910b1f513d109ae35fba9fd7319d4115")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e777a3ef1fe3492318e9af50bf91b8254ed7224")]
 [assembly: System.Reflection.AssemblyProductAttribute("GabTrans.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GabTrans.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

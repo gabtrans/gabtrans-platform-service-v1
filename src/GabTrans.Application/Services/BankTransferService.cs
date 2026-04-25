@@ -21,11 +21,10 @@ using System.Threading.Tasks;
 
 namespace GabTrans.Application.Services
 {
-    public class BankTransferService(ILogService logService, IFeeService feeService, IEmailNotificationService emailService, IGlobusBankService globusService, ISequenceService sequenceService, IInfinitusService infinitusService, IWalletRepository walletRepository, ITransferRepository transferRepository, IAccountRepository accountRepository, ICountryRepository countryRepository, IEncryptionService encryptionService, IRecipientRepository recipientRepository, ISettlementRepository settlementRepository, ITransactionPinRepository transactionPinRepository, IVirtualAccountRepository virtualAccountRepository) : IBankTransferService
+    public class BankTransferService(ILogService logService, IFeeService feeService, IGlobusBankService globusService, ISequenceService sequenceService, IInfinitusService infinitusService, IWalletRepository walletRepository, ITransferRepository transferRepository, IAccountRepository accountRepository, ICountryRepository countryRepository, IEncryptionService encryptionService, IUserRepository userRepository, IRecipientRepository recipientRepository, ISettlementRepository settlementRepository, ITransactionPinRepository transactionPinRepository, IVirtualAccountRepository virtualAccountRepository, IEmailNotificationService emailNotificationService) : IBankTransferService
     {
         private readonly ILogService _logService = logService;
         private readonly IFeeService _feeService = feeService;
-        private readonly IEmailNotificationService _emailService = emailService;
         private readonly IGlobusBankService _globusService = globusService;
         private readonly ISequenceService _sequenceService = sequenceService;
         private readonly IInfinitusService _infinitusService = infinitusService;
@@ -34,10 +33,12 @@ namespace GabTrans.Application.Services
         private readonly IAccountRepository _accountRepository = accountRepository;
         private readonly ICountryRepository _countryRepository = countryRepository;
         private readonly IEncryptionService _encryptionService = encryptionService;
+        private readonly IUserRepository _userRepository = userRepository;
         private readonly IRecipientRepository _recipientRepository = recipientRepository;
         private readonly ISettlementRepository _settlementRepository = settlementRepository;
         private readonly ITransactionPinRepository _transactionPinRepository = transactionPinRepository;
         private readonly IVirtualAccountRepository _virtualAccountRepository = virtualAccountRepository;
+        private readonly IEmailNotificationService _emailNotificationService = emailNotificationService;
 
         public async Task<ApiResponse> TransferAsync(BankTransferRequest request, long accountId)
         {
@@ -86,6 +87,13 @@ namespace GabTrans.Application.Services
             //        Message = "No fee configured"
             //    };
             //}
+
+            if (wallet.Balance < 2000000)
+            {
+                var user = await _userRepository.GetByAccountIdAsync(account.Id);
+
+                await _emailNotificationService.LowBalanceAsync(user.EmailAddress, request.Currency, wallet.Balance);
+            }
 
             if (wallet.Balance < Math.Round(request.Amount + fee, 2))
             {

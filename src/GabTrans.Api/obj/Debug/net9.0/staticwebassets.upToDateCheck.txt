@@ -5,6 +5,7 @@ C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\wwwroot\lib\bootstrap\dist\css
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.min.css
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\wwwroot\lib\bootstrap\dist\css\bootstrap-reboot.rtl.min.css
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\wwwroot\templates\receipt\ng\datavending.html
+C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\wwwroot\templates\email\low-balance.html
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.rtl.css.map
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\wwwroot\templates\receipt\ng\Fund_Account.txt
 C:\Projects\gabtrans-platform-v1\src\GabTrans.Api\wwwroot\templates\email\transfer-approved.html
@@ -411,6 +412,7 @@ wwwroot\templates\email\failed-transfer.html
 wwwroot\templates\email\forgot-password.html
 wwwroot\templates\email\fund-account.html
 wwwroot\templates\email\fx-conversion.html
+wwwroot\templates\email\low-balance.html
 wwwroot\templates\email\new-dispute.html
 wwwroot\templates\email\otp.html
 wwwroot\templates\email\reset-password.html
