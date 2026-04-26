@@ -100,7 +100,7 @@ public class GlobusBankClientIntegration : IGlobusBankClientIntegration
             request.Headers.Add("Authorization", $"Bearer {StaticData.GlobusSessionToken.Token}");
         }
 
-        _logService.LogInfo(nameof(GlobusBankClientIntegration), nameof(PostAsync), JsonConvert.SerializeObject(request));
+        //_logService.LogInfo(nameof(GlobusBankClientIntegration), nameof(PostAsync), JsonConvert.SerializeObject(request));
         // if (encryptedPayload is not null) request.Headers.Add("Encryption", encryptedPayload);
 
         var baseResponse = await _client.SendAsync(request);

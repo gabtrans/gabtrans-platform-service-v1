@@ -158,7 +158,7 @@ namespace GabTrans.Application.Services
 
                         if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "NGA") transaction.Receiver.CountryCode = "NG";
 
-                        var lookUpResponse = await _globusBankService.GetNameEnquiryAsync(transaction.Receiver.AccountNo, transaction.Receiver.BeneficiaryBankCode);
+                        var lookUpResponse = await _globusBankService.GetNameEnquiryAsync(transaction.Receiver.AccountNo, bank.Code);
                         if (!lookUpResponse.Success)
                         {
                             _logService.LogInfo("GRemitService", "DepositAsync", $"Unable to validate account for reference: {transaction.ReferenceNo}");
