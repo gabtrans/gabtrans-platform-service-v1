@@ -104,7 +104,7 @@
               "RelativeDocumentMoniker": "GabTrans.Application\\Services\\GRemitService.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GRemitService.cs",
               "RelativeToolTip": "GabTrans.Application\\Services\\GRemitService.cs",
-              "ViewState": "AgIAAJMAAAAAAAAAAAAkwKMAAABXAAAAAAAAAA==",
+              "ViewState": "AgIAAJUAAAAAAAAAAAAkwKwAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T20:53:26.78Z",
               "EditorCaption": ""
@@ -119,8 +119,7 @@
               "RelativeToolTip": "GabTrans.Infrastructure\\Integrations\\GlobusBankClientIntegration.cs",
               "ViewState": "AgIAAIUAAAAAAAAAAAAuwGYAAAAKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-25T06:36:38.926Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-25T06:36:38.926Z"
             },
             {
               "$type": "Document",
@@ -167,7 +166,7 @@
               "RelativeDocumentMoniker": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "RelativeToolTip": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T20:52:37.824Z",
               "EditorCaption": ""
