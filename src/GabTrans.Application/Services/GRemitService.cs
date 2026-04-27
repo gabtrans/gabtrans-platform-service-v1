@@ -65,7 +65,7 @@ namespace GabTrans.Application.Services
 
                         if (string.Equals(details.Status, TransactionStatuses.Reversed, StringComparison.OrdinalIgnoreCase)) await RejectAsync(gremitApplication, transfer.Reference, reason);
 
-                        if (string.Equals(details.Status, TransactionStatuses.Successful, StringComparison.OrdinalIgnoreCase)) await RejectAsync(gremitApplication, transfer.Reference, reason);
+                        if (string.Equals(details.Status, TransactionStatuses.Failed, StringComparison.OrdinalIgnoreCase)) await RejectAsync(gremitApplication, transfer.Reference, reason);
                     }
                     catch (Exception ex)
                     {
