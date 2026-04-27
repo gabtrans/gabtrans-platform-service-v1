@@ -119,7 +119,7 @@ namespace GabTrans.Application.Services
                         string bankCode = "";
 
                         var platformDetails = await _platformTransferRepository.DetailsAsync(transaction.ReferenceNo);
-                        if (platformDetails is not null)
+                        if (platformDetails is not null && !string.Equals(platformDetails.Status, GRemitStatuses.Ready, StringComparison.OrdinalIgnoreCase))
                         {
                             _logService.LogInfo("GRemitService", "DepositAsync", $"Reference already exists on platform:: Reference :{transaction.ReferenceNo}");
                             continue;
@@ -199,13 +199,13 @@ namespace GabTrans.Application.Services
                         var transferResponse = await _bankTransferService.TransferAsync(transferRequest, gremitApplication.AccountId);
                         if (!transferResponse.Success)
                         {
-                            await _platformTransferRepository.UpdateStatusAsync(transaction.ReferenceNo, GRemitStatuses.Error);
+                            await _platformTransferRepository.UpdateStatusAsync(transaction.ReferenceNo, GRemitStatuses.Error, transferResponse.Message);
 
                             _logService.LogInfo("GRemitService", "DepositAsync:: Unable to process request for ", transaction.ReferenceNo);
                             continue;
                         }
 
-                        await _platformTransferRepository.UpdateStatusAsync(transaction.ReferenceNo, GRemitStatuses.Paying);
+                        await _platformTransferRepository.UpdateStatusAsync(transaction.ReferenceNo, GRemitStatuses.Paying, transferResponse.Message);
                     }
                     catch (Exception ex)
                     {
@@ -223,6 +223,29 @@ namespace GabTrans.Application.Services
         }
 
         public async Task ProcessAsync()
+        {
+            try
+            {
+                int counter = 0;
+
+                var applications = await _platformTransferRepository.GetGRemitAsync(AccountStatuses.Active);
+                foreach (var application in applications)
+                {
+                    bool processed = false;
+
+                    if (string.Equals(application.DeliveryMethod, GRemitDeliveryMethods.Deposit, StringComparison.OrdinalIgnoreCase)) processed = await DepositAsync(application);
+                    if (processed) counter++;
+                }
+
+                if (counter > 0) _logService.LogInfo("GRemitService", "ProcessAsync", $"Processed {counter} applications");
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError("GRemitService", "ProcessAsync", ex);
+            }
+        }
+
+        public async Task ReProcessAsync()
         {
             try
             {
