@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "C:\\Projects\\gabtrans-platform-v1\\src\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{60096864-8079-4420-A5CE-636431FCECAC}|GabTrans.Api\\GabTrans.Api.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.api\\configuration\\backgroundjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{60096864-8079-4420-A5CE-636431FCECAC}|GabTrans.Api\\GabTrans.Api.csproj|solutionrelative:gabtrans.api\\configuration\\backgroundjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\services\\gremitservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|solutionrelative:gabtrans.application\\services\\gremitservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{60096864-8079-4420-A5CE-636431FCECAC}|GabTrans.Api\\GabTrans.Api.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.api\\configuration\\backgroundjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{60096864-8079-4420-A5CE-636431FCECAC}|GabTrans.Api\\GabTrans.Api.csproj|solutionrelative:gabtrans.api\\configuration\\backgroundjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -46,7 +46,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 17,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Bookmark",
@@ -98,13 +98,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "GRemitService.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GRemitService.cs",
               "RelativeDocumentMoniker": "GabTrans.Application\\Services\\GRemitService.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GRemitService.cs",
               "RelativeToolTip": "GabTrans.Application\\Services\\GRemitService.cs",
-              "ViewState": "AgIAAJUAAAAAAAAAAAAkwKwAAAAZAAAAAAAAAA==",
+              "ViewState": "AgIAACAAAAAAAAAAAAAAAEQAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T20:53:26.78Z",
               "EditorCaption": ""
@@ -160,13 +160,13 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "BackgroundJob.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "RelativeDocumentMoniker": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "RelativeToolTip": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAnAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T20:52:37.824Z",
               "EditorCaption": ""
