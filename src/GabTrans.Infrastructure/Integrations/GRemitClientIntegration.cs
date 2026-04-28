@@ -51,7 +51,7 @@ namespace GabTrans.Infrastructure.Integrations
                             </Data>
                         ";
 
-                _logService.LogInfo("GRemitClientIntegration", $"GetPendingTransactionsAsync Request to GRemit for {gremitApplication.AccountId}:: ", body);
+               // _logService.LogInfo("GRemitClientIntegration", $"GetPendingTransactionsAsync Request to GRemit for {gremitApplication.AccountId}:: ", body);
 
                 var soapServiceChannel = new ServiceSoapClient(ServiceSoapClient.EndpointConfiguration.ServiceSoap);
                 var gremitResponse = await soapServiceChannel.Transaction_Select_Unpaid_By_DateRangeAsync(body);
@@ -67,7 +67,7 @@ namespace GabTrans.Infrastructure.Integrations
                 //var xmlDocument = new XmlDocument();
                 //xmlDocument.LoadXml(resp);
                 //if (xmlDocument.InnerText.Contains("No Transactions found for the provided parameters")) return new GRemitTransactionsResponse();
-                _logService.LogInfo("GRemitClientIntegration", "GetPendingTransactionsAsync Raw Response from GRemit:: ", xmlDocument.InnerXml);
+               // _logService.LogInfo("GRemitClientIntegration", "GetPendingTransactionsAsync Raw Response from GRemit:: ", xmlDocument.InnerXml);
 
                 string responseDetails = JsonConvert.SerializeObject(xmlDocument);
 
@@ -128,7 +128,7 @@ namespace GabTrans.Infrastructure.Integrations
                             </Data>
                         ";
 
-                _logService.LogInfo("GRemitClientIntegration", "ApproveAsync Request from GRemit:: ", JsonConvert.SerializeObject(body));
+               // _logService.LogInfo("GRemitClientIntegration", "ApproveAsync Request from GRemit:: ", JsonConvert.SerializeObject(body));
 
                 var soapServiceChannel = new ServiceSoapClient(ServiceSoapClient.EndpointConfiguration.ServiceSoap);
                 var gremitResponse = await soapServiceChannel.Transaction_Update_MarkAsPaidAsync(body);
@@ -180,7 +180,7 @@ namespace GabTrans.Infrastructure.Integrations
                 var gremitResponse = await soapServiceChannel.Transaction_Update_MarkAsRejectedAsync(body);
                 //if (gremitResponse is null) return new GRemitTestResponse();
 
-                _logService.LogInfo("GRemitClientIntegration", "RejectAsync Response from GRemit:: ", JsonConvert.SerializeObject(gremitResponse));
+               // _logService.LogInfo("GRemitClientIntegration", "RejectAsync Response from GRemit:: ", JsonConvert.SerializeObject(gremitResponse));
 
                 var xmlDocument = new XmlDocument();
                 xmlDocument.LoadXml(gremitResponse.Body.Transaction_Update_MarkAsRejectedResult);
