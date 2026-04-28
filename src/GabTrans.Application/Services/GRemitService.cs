@@ -30,7 +30,7 @@ namespace GabTrans.Application.Services
 
                 var transfers = await _platformTransferRepository.GetAsync(GRemitStatuses.Paying, applicationIds);
 
-                if (transfers.Count() > 0) _logService.LogInfo("GRemitService", "ConfirmationAsync", $"Total number of payouts is : {transfers.Count()}");
+                if (transfers.Any()) _logService.LogInfo("GRemitService", "ConfirmationAsync", $"Total number of payouts is : {transfers.Count()}");
 
                 foreach (var transfer in transfers)
                 {
@@ -46,21 +46,6 @@ namespace GabTrans.Application.Services
                         var gremitApplication = StaticData.GremitAccounts.FirstOrDefault(x => x.AccountId == transfer.AccountId && x.Country == Countries.Nigeria);
                         if (gremitApplication is null) continue;
 
-                        //switch (details.Status)
-                        //{
-                        //    case TransactionStatuses.Successful:
-                        //        await ApprovedAsync(gremitApplication, transfer.Reference);
-                        //        break;
-                        //    case TransactionStatuses.Reversed:
-                        //        await RejectAsync(gremitApplication, transfer.Reference, reason);
-                        //        break;
-                        //    case TransactionStatuses.Failed:
-                        //        await RejectAsync(gremitApplication, transfer.Reference, reason);
-                        //        break;
-                        //    default:
-                        //        break;
-                        //}
-
                         if (string.Equals(details.Status, TransactionStatuses.Successful, StringComparison.OrdinalIgnoreCase)) await ApprovedAsync(gremitApplication, transfer.Reference);
 
                         if (string.Equals(details.Status, TransactionStatuses.Reversed, StringComparison.OrdinalIgnoreCase)) await RejectAsync(gremitApplication, transfer.Reference, reason);
@@ -69,13 +54,13 @@ namespace GabTrans.Application.Services
                     }
                     catch (Exception ex)
                     {
-                        _logService.LogError("GRemitService", "ConfirmationAsync", ex);
+                        _logService.LogError(nameof(GRemitService), nameof(ConfirmationAsync), ex);
                     }
                 }
             }
             catch (Exception ex)
             {
-                _logService.LogError("GRemitService", "ConfirmationAsync", ex);
+                _logService.LogError(nameof(GRemitService), nameof(ConfirmationAsync), ex);
             }
         }
 
@@ -223,29 +208,6 @@ namespace GabTrans.Application.Services
         }
 
         public async Task ProcessAsync()
-        {
-            try
-            {
-                int counter = 0;
-
-                var applications = await _platformTransferRepository.GetGRemitAsync(AccountStatuses.Active);
-                foreach (var application in applications)
-                {
-                    bool processed = false;
-
-                    if (string.Equals(application.DeliveryMethod, GRemitDeliveryMethods.Deposit, StringComparison.OrdinalIgnoreCase)) processed = await DepositAsync(application);
-                    if (processed) counter++;
-                }
-
-                if (counter > 0) _logService.LogInfo("GRemitService", "ProcessAsync", $"Processed {counter} applications");
-            }
-            catch (Exception ex)
-            {
-                _logService.LogError("GRemitService", "ProcessAsync", ex);
-            }
-        }
-
-        public async Task ReProcessAsync()
         {
             try
             {

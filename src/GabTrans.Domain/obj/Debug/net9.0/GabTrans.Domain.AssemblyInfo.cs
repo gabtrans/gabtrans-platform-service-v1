@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GabTrans.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ff1f9da7a8172188206f641dcec5daa6f3a80228")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6b44af29d445244f8cf52dca73d106fbbc94c55b")]
 [assembly: System.Reflection.AssemblyProductAttribute("GabTrans.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GabTrans.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
