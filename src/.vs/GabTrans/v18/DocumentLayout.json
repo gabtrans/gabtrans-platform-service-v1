@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Projects\\gabtrans-platform-v1\\src\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.infrastructure\\integrations\\globusbankclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|solutionrelative:gabtrans.infrastructure\\integrations\\globusbankclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\services\\globusbankservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|solutionrelative:gabtrans.application\\services\\globusbankservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{60096864-8079-4420-A5CE-636431FCECAC}|GabTrans.Api\\GabTrans.Api.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.api\\configuration\\backgroundjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{60096864-8079-4420-A5CE-636431FCECAC}|GabTrans.Api\\GabTrans.Api.csproj|solutionrelative:gabtrans.api\\configuration\\backgroundjob.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -27,10 +35,6 @@
       "RelativeMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|solutionrelative:gabtrans.infrastructure\\notification\\emailnotificationservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\services\\globusbankservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|solutionrelative:gabtrans.application\\services\\globusbankservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BAB842D5-01C7-4AED-A2B0-F879610CE90E}|GabTrans.Domain\\GabTrans.Domain.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.domain\\models\\staticdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BAB842D5-01C7-4AED-A2B0-F879610CE90E}|GabTrans.Domain\\GabTrans.Domain.csproj|solutionrelative:gabtrans.domain\\models\\staticdata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -46,8 +50,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 17,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "GlobusBankClientIntegration.cs",
+              "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Integrations\\GlobusBankClientIntegration.cs",
+              "RelativeDocumentMoniker": "GabTrans.Infrastructure\\Integrations\\GlobusBankClientIntegration.cs",
+              "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Integrations\\GlobusBankClientIntegration.cs",
+              "RelativeToolTip": "GabTrans.Infrastructure\\Integrations\\GlobusBankClientIntegration.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAAADcAAABqAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T15:13:13.827Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:130:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
@@ -98,7 +115,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "BankTransferService.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\BankTransferService.cs",
               "RelativeDocumentMoniker": "GabTrans.Application\\Services\\BankTransferService.cs",
@@ -111,7 +128,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "GRemitService.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GRemitService.cs",
               "RelativeDocumentMoniker": "GabTrans.Application\\Services\\GRemitService.cs",
@@ -124,7 +141,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "EmailNotificationService.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Notification\\EmailNotificationService.cs",
               "RelativeDocumentMoniker": "GabTrans.Infrastructure\\Notification\\EmailNotificationService.cs",
@@ -136,19 +153,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 1,
               "Title": "GlobusBankService.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GlobusBankService.cs",
               "RelativeDocumentMoniker": "GabTrans.Application\\Services\\GlobusBankService.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GlobusBankService.cs",
               "RelativeToolTip": "GabTrans.Application\\Services\\GlobusBankService.cs",
-              "ViewState": "AgIAADIAAAAAAAAAAAAkwFIAAABGAAAAAAAAAA==",
+              "ViewState": "AgIAADkAAAAAAAAAAAAAAEkAAABKAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-23T21:33:23.854Z"
+              "WhenOpened": "2026-04-23T21:33:23.854Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "GRemitClientIntegration.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Integrations\\GRemitClientIntegration.cs",
               "RelativeDocumentMoniker": "GabTrans.Infrastructure\\Integrations\\GRemitClientIntegration.cs",
@@ -161,7 +179,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "BackgroundJob.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "RelativeDocumentMoniker": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
@@ -174,7 +192,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "IEmailNotificationService.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Abstractions\\Notification\\IEmailNotificationService.cs",
               "RelativeDocumentMoniker": "GabTrans.Application\\Abstractions\\Notification\\IEmailNotificationService.cs",
@@ -186,7 +204,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 8,
               "Title": "StaticData.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Domain\\Models\\StaticData.cs",
               "RelativeDocumentMoniker": "GabTrans.Domain\\Models\\StaticData.cs",
@@ -198,7 +216,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
               "Title": "GabTransContext.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Data\\GabTransContext.cs",
               "RelativeDocumentMoniker": "GabTrans.Infrastructure\\Data\\GabTransContext.cs",
