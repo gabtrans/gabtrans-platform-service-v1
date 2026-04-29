@@ -1,15 +1,16 @@
-using Newtonsoft.Json;
 using GabTrans.Application.Abstractions.Integrations;
 using GabTrans.Application.Abstractions.Logging;
+using GabTrans.Application.Abstractions.Repositories;
 using GabTrans.Application.Abstractions.Services;
+using GabTrans.Application.DataTransfer;
+using GabTrans.Application.Interfaces.Services;
 using GabTrans.Domain.Constants;
 using GabTrans.Domain.Entities;
+using GabTrans.Domain.Enums;
 using GabTrans.Domain.Models;
-using System.Net;
-using GabTrans.Application.DataTransfer;
-using GabTrans.Application.Abstractions.Repositories;
-using GabTrans.Application.Interfaces.Services;
+using Newtonsoft.Json;
 using System.Globalization;
+using System.Net;
 
 namespace GabTrans.Application.Services
 {
@@ -142,6 +143,8 @@ namespace GabTrans.Application.Services
                         }
 
                         if (!string.IsNullOrEmpty(transaction.Receiver.CountryCode) && transaction.Receiver.CountryCode == "NGA") transaction.Receiver.CountryCode = "NG";
+
+                        if (string.Equals(transaction.Remittance.ReceivingCurrency, Currencies.NGN, StringComparison.OrdinalIgnoreCase) && bank.Code == "000027") bank.Code = "103";
 
                         var lookUpResponse = await _globusBankService.GetNameEnquiryAsync(transaction.Receiver.AccountNo, bank.Code);
                         if (!lookUpResponse.Success)
