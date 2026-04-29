@@ -4,7 +4,8 @@ namespace GabTrans.Application.Abstractions.Services
 {
     public interface IGRemitService
     {
+        Task FetchAsync();
         Task ProcessAsync();
-        Task ConfirmationAsync();
+        Task NotifyAsync();
     }
 }

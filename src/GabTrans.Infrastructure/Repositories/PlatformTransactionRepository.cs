@@ -36,6 +36,13 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
         return await _dbContext.PlatformTransactions.Where(x => x.CreatedAt.Date >= startDate.Date && x.CreatedAt.Date <= endDate.Date).OrderBy(x => x.CreatedAt).Where(x => x.Status == status && accountIds.Contains(x.AccountId)).ToListAsync();
     }
 
+    public async Task<IEnumerable<PlatformTransaction>> GetByStatusAsync(string status)
+    {
+        DateTime startDate = DateTime.Now.AddDays(-1);
+        DateTime endDate = DateTime.Now;
+        return await _dbContext.PlatformTransactions.Where(x => x.CreatedAt.Date >= startDate.Date && x.CreatedAt.Date <= endDate.Date).OrderBy(x => x.CreatedAt).Where(x => x.Status == status).ToListAsync();
+    }
+
     public async Task<IEnumerable<PlatformTransaction>> GetPendingAsync()
     {
         return await _dbContext.PlatformTransactions.OrderByDescending(x => x.Id).Where(x => x.CreatedAt >= DateTime.UtcNow.AddDays(-10) && x.Status == null).Take(50).ToListAsync();
@@ -61,13 +68,11 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
         return await _dbContext.GremitAccounts.Where(x => x.Status == status).ToListAsync();
     }
 
-    public async Task<bool> UpdateAsync(string reference, string response)
+    public async Task<bool> UpdateAsync(PlatformTransaction platformTransaction)
     {
         try
         {
-            var platformTransaction = await _dbContext.PlatformTransactions.Where(x => x.Reference == reference).FirstOrDefaultAsync();
-            if (platformTransaction == null) return false;
-            platformTransaction.Response = response;
+            _dbContext.PlatformTransactions.Update(platformTransaction);
             await _dbContext.SaveChangesAsync();
             return true;
         }
@@ -165,7 +170,7 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
     }
 
 
-    public async Task<bool> BulkInsertAsync(IEnumerable<PlatformTransaction> gatewayPayouts)
+    public async Task<bool> BulkInsertAsync(List<PlatformTransaction> gatewayPayouts)
     {
         using var transaction = await _dbContext.Database.BeginTransactionAsync();
         try

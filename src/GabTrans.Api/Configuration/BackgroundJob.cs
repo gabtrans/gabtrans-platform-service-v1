@@ -11,7 +11,9 @@ namespace GabTrans.Api.Configuration
 
         public async Task Execute(IJobExecutionContext context)
         {
-            await _gRemitService.ConfirmationAsync();
+            await _gRemitService.NotifyAsync();
+
+            await _gRemitService.FetchAsync();
 
             await _gRemitService.ProcessAsync();
         }
