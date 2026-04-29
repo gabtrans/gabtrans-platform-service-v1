@@ -71,16 +71,24 @@ public class GlobusBankService(IAccountRepository accountRepository, ITransferRe
 
     public async Task<ApiResponse> GetNameEnquiryAsync(string accountno, string bankcode)
     {
-        var nameEnquiry = await _globusBankClientIntegration.NameEnquiryAsync(accountno, bankcode);
-        if (nameEnquiry is null)
+        var lookupResponse = await _globusBankClientIntegration.NameEnquiryAsync(accountno, bankcode);
+        if (lookupResponse is null || string.IsNullOrEmpty(lookupResponse.responsecode))
         {
             return new ApiResponse
             {
-                Message = "Transaction not found"
+                Message = "Account details not found"
             };
         }
 
-        return new ApiResponse { Data = nameEnquiry.result.accountname, Message = "Successful", Success = true };
+        if (lookupResponse.responsecode!="00")
+        {
+            return new ApiResponse
+            {
+                Message = "Account details not found"
+            };
+        }
+
+        return new ApiResponse { Data = lookupResponse.result.accountname, Message = "Successful", Success = true };
     }
 
     public async Task<ApiResponse> TransactionQueryAsync(Transfer transfer)

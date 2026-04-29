@@ -53,6 +53,8 @@ public class GlobusBankClientIntegration : IGlobusBankClientIntegration
 
         // if (content != null) request.Content = new FormUrlEncodedContent(content);
 
+        _logService.LogInfo("GlobusBankClientIntegration", "GetAsync", "URL Globus Bank:: " + relativePath);
+
         var response = await _client.SendAsync(request, HttpCompletionOption.ResponseHeadersRead);
 
         var data = await response.Content.ReadAsStringAsync();
