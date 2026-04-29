@@ -192,7 +192,7 @@ namespace GabTrans.Application.Services
                         var transaction = JsonConvert.DeserializeObject<GRemitTransaction>(platformTransaction.Request);
                         if (transaction is null)
                         {
-                            _logService.LogInfo("GRemitService", "ProcessAsync", $"Unabl to deserialize Request:: Reference :{platformTransaction.Reference}");
+                            _logService.LogInfo("GRemitService", "ProcessAsync", $"Unable to deserialize Request:: Reference :{platformTransaction.Reference}");
                             continue;
                         }
 
@@ -231,10 +231,10 @@ namespace GabTrans.Application.Services
                         var bank = StaticData.Banks.FirstOrDefault(x => x.Code == bankCode);
                         if (bank is null)
                         {
-                            _logService.LogInfo("GRemitService", "ProcessAsync", $"Invalid Bank Code for BudPay:: Reference :{transaction.ReferenceNo}");
+                            _logService.LogInfo("GRemitService", "ProcessAsync", $"Invalid Bank Code for GabTrans Core:: Reference :{transaction.ReferenceNo}");
 
                             platformTransaction.Status = GRemitStatuses.Error;
-                            platformTransaction.Response = $"Invalid Bank Code for BudPay:: Reference :{transaction.ReferenceNo}";
+                            platformTransaction.Response = $"Invalid Bank Code for GabTrans Core:: Reference :{transaction.ReferenceNo}";
                             await _platformTransferRepository.UpdateAsync(platformTransaction);
                             continue;
                         }
