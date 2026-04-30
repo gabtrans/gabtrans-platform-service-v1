@@ -134,8 +134,17 @@ namespace GabTrans.Application.Services
                     try
                     {
                         var platformDetails = await _platformTransferRepository.DetailsAsync(transaction.ReferenceNo);
-                        if (platformDetails is not null)
+                        if (platformDetails is not null && !string.Equals(platformDetails.Status,GRemitStatuses.Payable, StringComparison.OrdinalIgnoreCase))
                         {
+                            _logService.LogInfo("GRemitService", "LogDepositAsync", $"Reference already exists on platform:: Reference :{transaction.ReferenceNo}");
+                            continue;
+                        }
+
+                        if (platformDetails is not null && string.Equals(platformDetails.Status, GRemitStatuses.Payable, StringComparison.OrdinalIgnoreCase))
+                        {
+                            platformDetails.Status = GRemitStatuses.Ready;
+                            platformDetails.Request = JsonConvert.SerializeObject(transaction);
+                            await _platformTransferRepository.UpdateAsync(platformDetails);
                             _logService.LogInfo("GRemitService", "LogDepositAsync", $"Reference already exists on platform:: Reference :{transaction.ReferenceNo}");
                             continue;
                         }
