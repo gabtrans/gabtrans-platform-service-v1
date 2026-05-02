@@ -11,16 +11,16 @@
       "RelativeMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|solutionrelative:gabtrans.application\\services\\gremitservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|solutionrelative:gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\abstractions\\repositories\\iplatformtransactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|solutionrelative:gabtrans.application\\abstractions\\repositories\\iplatformtransactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.infrastructure\\repositories\\platformtransactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|solutionrelative:gabtrans.infrastructure\\repositories\\platformtransactionrepository.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2481FBE6-76A9-43F9-9633-3360B6A7E514}|GabTrans.Infrastructure\\GabTrans.Infrastructure.csproj|solutionrelative:gabtrans.infrastructure\\integrations\\gremitclientintegration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1E3660F6-28A8-4822-8430-4F348FED457E}|GabTrans.Application\\GabTrans.Application.csproj|c:\\projects\\gabtrans-platform-v1\\src\\gabtrans.application\\abstractions\\services\\igremitservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -34,7 +34,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 13,
+          "SelectedChildIndex": 14,
           "Children": [
             {
               "$type": "Bookmark",
@@ -86,7 +86,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
+              "Title": "PlatformTransactionRepository.cs",
+              "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Repositories\\PlatformTransactionRepository.cs",
+              "RelativeDocumentMoniker": "GabTrans.Infrastructure\\Repositories\\PlatformTransactionRepository.cs",
+              "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Repositories\\PlatformTransactionRepository.cs",
+              "RelativeToolTip": "GabTrans.Infrastructure\\Repositories\\PlatformTransactionRepository.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAAAsAAABxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-29T17:03:07.359Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "GRemitClientIntegration.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Integrations\\GRemitClientIntegration.cs",
               "RelativeDocumentMoniker": "GabTrans.Infrastructure\\Integrations\\GRemitClientIntegration.cs",
@@ -94,7 +107,8 @@
               "RelativeToolTip": "GabTrans.Infrastructure\\Integrations\\GRemitClientIntegration.cs",
               "ViewState": "AgIAAB4AAAAAAAAAAAAEwDcAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-30T20:22:33.76Z"
+              "WhenOpened": "2026-04-30T20:22:33.76Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -104,7 +118,7 @@
               "RelativeDocumentMoniker": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Api\\Configuration\\BackgroundJob.cs",
               "RelativeToolTip": "GabTrans.Api\\Configuration\\BackgroundJob.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAALAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-29T19:24:32.757Z",
               "EditorCaption": ""
@@ -123,27 +137,16 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "IPlatformTransactionRepository.cs",
               "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Abstractions\\Repositories\\IPlatformTransactionRepository.cs",
               "RelativeDocumentMoniker": "GabTrans.Application\\Abstractions\\Repositories\\IPlatformTransactionRepository.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Abstractions\\Repositories\\IPlatformTransactionRepository.cs",
               "RelativeToolTip": "GabTrans.Application\\Abstractions\\Repositories\\IPlatformTransactionRepository.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAABDAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T17:17:03.429Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "PlatformTransactionRepository.cs",
-              "DocumentMoniker": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Repositories\\PlatformTransactionRepository.cs",
-              "RelativeDocumentMoniker": "GabTrans.Infrastructure\\Repositories\\PlatformTransactionRepository.cs",
-              "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Infrastructure\\Repositories\\PlatformTransactionRepository.cs",
-              "RelativeToolTip": "GabTrans.Infrastructure\\Repositories\\PlatformTransactionRepository.cs",
-              "ViewState": "AgIAADYAAAAAAAAAAAAQwEYAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-29T17:03:07.359Z"
+              "WhenOpened": "2026-04-29T17:17:03.429Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -153,7 +156,7 @@
               "RelativeDocumentMoniker": "GabTrans.Application\\Services\\GRemitService.cs",
               "ToolTip": "C:\\Projects\\gabtrans-platform-v1\\src\\GabTrans.Application\\Services\\GRemitService.cs",
               "RelativeToolTip": "GabTrans.Application\\Services\\GRemitService.cs",
-              "ViewState": "AgIAAAQBAAAAAAAAAAAIwJAAAABJAAAAAAAAAA==",
+              "ViewState": "AgIAABIAAAAAAAAAAAAkwBwAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-04-20T20:53:26.78Z",
               "EditorCaption": ""

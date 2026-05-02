@@ -40,6 +40,7 @@ namespace GabTrans.Application.Services
                 {
                     try
                     {
+
                         var details = await _transferRepository.DetailsAsync(transfer.Reference);
                         if (details is null) continue;
 
@@ -212,6 +213,8 @@ namespace GabTrans.Application.Services
                             continue;
                         }
 
+                        var gremitApplication = await _platformTransferRepository.GetGRemitDetailsAsync(platformTransaction.AccountId);
+
                         if (string.IsNullOrEmpty(transaction.Receiver.BeneficiaryBankCode))
                         {
                             _logService.LogInfo("GRemitService", "ProcessAsync", $"Empty Bank Code for GRemit Banks:: Reference :{transaction.ReferenceNo}");
@@ -219,6 +222,21 @@ namespace GabTrans.Application.Services
                             platformTransaction.Status = GRemitStatuses.Error;
                             platformTransaction.Response = $"Empty Bank Code for GRemit Banks:: Reference :{transaction.ReferenceNo}";
                             await _platformTransferRepository.UpdateAsync(platformTransaction);
+
+                            await RejectAsync(gremitApplication, transaction.ReferenceNo, "Invalid beneficiary bank code");
+
+                            continue;
+                        }
+
+                        if (string.IsNullOrEmpty(transaction.Receiver.AccountNo))
+                        {
+                            _logService.LogInfo("GRemitService", "ProcessAsync", $"Empty Bank Code for GRemit Banks:: Reference :{transaction.ReferenceNo}");
+
+                            platformTransaction.Status = GRemitStatuses.Error;
+                            platformTransaction.Response = $"Invalid beneficiary Account Number for GRemit Banks:: Reference :{transaction.ReferenceNo}";
+                            await _platformTransferRepository.UpdateAsync(platformTransaction);
+
+                            await RejectAsync(gremitApplication, transaction.ReferenceNo, "Invalid beneficiary Account Number");
 
                             continue;
                         }
@@ -311,6 +329,47 @@ namespace GabTrans.Application.Services
             catch (Exception ex)
             {
                 _logService.LogError("GRemitService", "ProcessAsync", ex);
+            }
+        }
+
+
+
+        public async Task NotifyfghfghAsync()
+        {
+            try
+            {
+                var applicationIds = StaticData.GremitAccounts.Where(x => string.Equals(x.Status, AccountStatuses.Active, StringComparison.OrdinalIgnoreCase)).DistinctBy(x => x.AccountId).Select(x => x.AccountId).ToList();
+
+                var transfers = await _platformTransferRepository.GetAsync(GRemitStatuses.Error, applicationIds);
+
+                if (transfers.Any()) _logService.LogInfo("GRemitService", "NotifyAsync", $"Total number of payouts is : {transfers.Count()}");
+
+                foreach (var transfer in transfers)
+                {
+                    try
+                    {
+
+                       // var details = await _transferRepository.DetailsAsync(transfer.Reference);
+                       // if (details is null) continue;
+
+                       // if (string.Equals(details.Status, TransactionStatuses.Pending, StringComparison.OrdinalIgnoreCase)) continue;
+
+                        string reason = "Invalid beneficiary account number";
+
+                        var gremitApplication = StaticData.GremitAccounts.FirstOrDefault(x => x.AccountId == transfer.AccountId && x.Country == Countries.Nigeria);
+                        if (gremitApplication is null) continue;
+
+                        await RejectAsync(gremitApplication, transfer.Reference, reason);
+                    }
+                    catch (Exception ex)
+                    {
+                        _logService.LogError(nameof(GRemitService), nameof(NotifyAsync), ex);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _logService.LogError(nameof(GRemitService), nameof(NotifyAsync), ex);
             }
         }
     }

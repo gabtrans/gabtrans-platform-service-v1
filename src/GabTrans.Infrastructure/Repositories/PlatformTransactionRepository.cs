@@ -68,6 +68,12 @@ public class PlatformTransactionRepository(ILogService logService, GabTransConte
         return await _dbContext.GremitAccounts.Where(x => x.Status == status).ToListAsync();
     }
 
+
+    public async Task<GremitAccount> GetGRemitDetailsAsync(long accountId)
+    {
+        return await _dbContext.GremitAccounts.Where(x => x.AccountId == accountId).FirstOrDefaultAsync();
+    }
+
     public async Task<bool> UpdateAsync(PlatformTransaction platformTransaction)
     {
         try

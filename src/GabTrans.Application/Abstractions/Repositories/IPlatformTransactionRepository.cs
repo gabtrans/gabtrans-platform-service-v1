@@ -8,6 +8,7 @@ public interface IPlatformTransactionRepository
 {
     //Task<bool> UpdateApplicationAsync(long id);
     Task<IEnumerable<PlatformTransaction>> GetAsync();
+    Task<GremitAccount> GetGRemitDetailsAsync(long accountId);
     Task<IEnumerable<PlatformTransaction>> GetPendingAsync();
     Task<bool> UpdateStatusAsync(long id, string status);
     Task<IEnumerable<PlatformTransaction>> GetByStatusAsync(string status);

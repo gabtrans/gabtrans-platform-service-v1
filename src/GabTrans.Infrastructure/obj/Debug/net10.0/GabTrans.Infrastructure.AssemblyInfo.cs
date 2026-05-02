@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("GabTrans.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+41923bfb95451131ce09f416c32121577d4a5d00")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+16de24105729563be85944b3dd22b3d53195e505")]
 [assembly: System.Reflection.AssemblyProductAttribute("GabTrans.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("GabTrans.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
